@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * === Z-INDEX SCALE (documented, single source of truth) ===
+ * Keep every stacking value in the app on this scale so nothing fights.
+ *   0     — base content / sections
+ *   10    — in-section decorative overlays (gradients, sticky headers within a section)
+ *   50    — Navbar (floating dock)
+ *   999   — global noise overlay (.noise::after)
+ *   1000  — page-level overlays (mobile menu, modals) [reserved]
+ *   9998  — custom cursor
+ *   9999  — cinematic loading screen / intro
+ * Anything new should slot into a gap above, never an ad-hoc 99999.
+ */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --primary: #2563EB;
+    --primary-light: #60A5FA;
+    --bg: #060C1A;
+    --navy: #0A1728;
+    --cursor-size: 12px;
+
+    --z-base: 0;
+    --z-decor: 10;
+    --z-navbar: 50;
+    --z-noise: 999;
+    --z-overlay: 1000;
+    --z-cursor: 9998;
+    --z-intro: 9999;
+
+    /* iOS safe-area helpers */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Prevent any single element from forcing horizontal scroll on the page */
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    @apply bg-background text-zinc-100 antialiased;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    @apply tracking-tight font-extrabold;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.35);
+    color: #fff;
+  }
+
+  /* Native royal blue default and pointer cursors with thin white outline */
+  body, html {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232563eb" stroke="%23ffffff" stroke-width="0.6" stroke-linejoin="round" d="M3 2v16l4.2-4.2 2.8 6.5 3.2-1.4-2.8-6.5 5.6-.4z"/></svg>') 3 2, auto;
+  }
+
+  a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232563eb" stroke="%23ffffff" stroke-width="0.6" stroke-linejoin="round" d="M3 2v16l4.2-4.2 2.8 6.5 3.2-1.4-2.8-6.5 5.6-.4z"/></svg>') 3 2, pointer !important;
+  }
+
+  input[type="text"], input[type="email"], textarea {
+    cursor: text;
+  }
+
+  /* Respect prefers-reduced-motion globally. Component-level motion props
+     still branch on this (see useReducedMotion usage), this is the CSS-only
+     backstop for anything not wired through Framer Motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Text Gradients */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #fff 0%, #93C5FD 50%, #60A5FA 100%);
+  }
+  .text-gradient-blue {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #60A5FA 0%, #2563EB 100%);
+  }
+  .text-gradient-white {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+  }
+
+  /* Glass Effects */
+  .glass {
+    background: rgba(10, 23, 40, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+  }
+  .glass-hover {
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .glass-hover:hover {
+    background: rgba(15, 30, 60, 0.7);
+    border-color: rgba(37, 99, 235, 0.25);
+  }
+
+  /* Grid background */
+  .bg-grid {
+    background-image: linear-gradient(rgba(37,99,235,0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(37,99,235,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 40px rgba(37, 99, 235, 0.3), 0 0 80px rgba(37, 99, 235, 0.1);
+  }
+  .glow-text {
+    text-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.15) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* Clip path reveal */
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+  }
+  .clip-reveal-show {
+    clip-path: inset(0 0% 0 0);
+    transition: clip-path 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Noise texture overlay */
+  .noise::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-noise);
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+  }
+
+  /* Horizontal marquee container */
+  .marquee-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 1rem;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    flex-shrink: 0;
+    min-width: 100%;
+  }
+
+  /* Backdrop blur levels */
+  .backdrop-blur-2xl { backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); }
+  .backdrop-blur-3xl { backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px); }
+
+  /* Note: .font-display / .font-heading / .font-sans / .font-mono are
+     generated by Tailwind from tailwind.config.js's fontFamily theme —
+     that's the single source of truth for the type system, intentionally
+     not duplicated here. */
+
+  /* Line clamp */
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
+
+/* === Custom Scrollbar === */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #060C1A; }
+::-webkit-scrollbar-thumb { background: rgba(37,99,235,0.4); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(37,99,235,0.7); }
+
+/* === Loading screen === */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-intro);
+  background: #060C1A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* === Cinematic intro glow === */
+.intro-glow {
+  text-shadow: 0 0 40px rgba(37, 99, 235, 0.6), 0 0 80px rgba(37, 99, 235, 0.3), 0 0 120px rgba(37, 99, 235, 0.15);
+}
+
+/* === Cursor === */
+.custom-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  mix-blend-mode: difference;
+}
+
+/* Belt-and-suspenders: never let the custom cursor render on a coarse
+   (touch) pointer even if the component mounts before JS detects it. */
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* === Hero photo glow === */
+.hero-photo-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(ellipse at center, rgba(37,99,235,0.25) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* === Smooth image reveal === */
+img {
+  transition: filter 0.5s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* === Keyframes === */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Was referenced by .marquee-track and the Home.tsx tech strip but never
+   actually defined — the marquee was silently static instead of scrolling. */
+@keyframes marquee {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+}
+
+/* === Spotlight stage — 3D standing letters + rotating beam === */
+.hero-letter {
+  transform: rotateX(18deg);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease, text-shadow 0.45s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter { transform: none; }
+}
+
+/* === Brand seal — slowly rotating gradient ring around the UK. monogram === */
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+.brand-seal-ring {
+  background: conic-gradient(from var(--border-angle), #3B82F6, #93C5FD, #1E3A8A, #3B82F6);
+  animation: brand-seal-rotate 6s linear infinite;
+}
+@keyframes brand-seal-rotate {
+  to { --border-angle: 360deg; }
+}
+
+/* === Shimmering gradient text — slow background drift === */
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes wireframe-spin {
+  from { transform: rotateY(0deg) rotateX(8deg); }
+  to { transform: rotateY(360deg) rotateX(8deg); }
+}
+.wireframe-spin {
+  animation: wireframe-spin 34s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wireframe-spin { animation: none; }
+}
+
+/* === Button shine sweep — light glides across on hover === */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -160%;
+  width: 55%;
+  height: 100%;
+  transform: skewX(-20deg);
+  background: linear-gradient(105deg, transparent 25%, rgba(255, 255, 255, 0.35) 50%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.shine-sweep:hover::after,
+.shine-sweep:focus-visible::after {
+  left: 170%;
+}
+
+/* === Text selection === */
+::selection {
+  background: rgba(37, 99, 235, 0.45);
+  color: #fff;
+}
+
+/* === Focus styles === */
+:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.7);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* === Intro starfield — soft twinkle === */
+.star {
+  animation: star-twinkle 4s ease-in-out infinite;
+}
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.85); }
+  50% { opacity: 0.85; transform: scale(1.2); }
+}
+
+/* === Intro film — grain, soft float, orbit ring === */
+.film-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.7s steps(4) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -2%); }
+  100% { transform: translate(3%, 2%); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.float-soft {
+  animation: float-soft 4s ease-in-out infinite;
+}
+
+@keyframes ring-orbit {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--ring-radius, 0px)) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--ring-radius, 0px)) rotate(-360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-grain,
+  .float-soft {
+    animation: none;
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Usman Khatri | Full-Stack Architect",
+  "short_name": "Usman.dev",
+  "description": "Portfolio of Usman Khatri — Full-Stack Architect building high-performance digital ecosystems.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "portrait-primary",
+  "background_color": "#060C1A",
+  "theme_color": "#060C1A",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["portfolio", "developer", "technology"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/usman.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
+      "label": "Usman Khatri Portfolio"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Works",
+      "short_name": "Works",
+      "description": "View selected projects",
+      "url": "/works",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "/contact",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "prefer_related_applications": false
+}
