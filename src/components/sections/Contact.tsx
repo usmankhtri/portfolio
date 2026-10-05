@@ -283,7 +283,7 @@ export const Contact = () => {
           </span>
         </motion.div>
 
-        <h2 className="mt-8 font-heading font-black tracking-tight text-white text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">
+        <h2 className="mt-8 font-heading font-black tracking-tight text-white text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-[0.95]">
           <motion.span
             className="block"
             initial={{ opacity: 0 }}
@@ -318,7 +318,7 @@ export const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0 }}
           transition={{ delay: 0.5, duration: 0.6, ease: APPLE_EASE }}
-          className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-zinc-500 sm:text-base"
+          className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-zinc-500 sm:text-base px-2"
         >
           A project, a collaboration, or just an interesting idea — drop a transmission.
           I reply fast, and I build faster.
@@ -334,7 +334,7 @@ export const Contact = () => {
         viewport={{ once: true, amount: 0 }}
         transition={{ duration: 0.9, ease: APPLE_EASE }}
         onMouseMove={onBoardMove}
-        className="group relative -mx-6 overflow-hidden rounded-3xl border border-white/10 bg-[#0B1220]/70 backdrop-blur-md sm:-mx-10 lg:-mx-12"
+        className="group relative mx-0 sm:-mx-6 lg:-mx-12 overflow-hidden rounded-3xl border border-white/10 bg-[#0B1220]/70 backdrop-blur-md"
       >
         {/* Engineering grid */}
         <div
@@ -405,7 +405,7 @@ export const Contact = () => {
           {/* ========================================================= */}
           {/* LEFT — the live console                                   */}
           {/* ========================================================= */}
-          <div className="relative flex flex-col items-center justify-center border-b border-white/[0.06] p-8 sm:p-10 lg:col-span-2 lg:border-b-0 lg:border-r">
+          <div className="relative flex flex-col items-center justify-center border-b border-white/[0.06] p-6 sm:p-10 lg:col-span-2 lg:border-b-0 lg:border-r">
             {/* Signal kicker + equalizer */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -552,7 +552,7 @@ export const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ delay: 0.15, duration: 0.8, ease: APPLE_EASE }}
-            className="relative p-6 sm:p-9 lg:col-span-3"
+            className="relative p-5 xs:p-6 sm:p-9 lg:col-span-3"
           >
             <div className="mb-8">
               <p className="font-heading font-bold text-white text-xl sm:text-2xl">

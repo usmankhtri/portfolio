@@ -72,13 +72,32 @@
     color: #fff;
   }
 
-  /* Native royal blue default and pointer cursors with thin white outline */
-  body, html {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232563eb" stroke="%23ffffff" stroke-width="0.6" stroke-linejoin="round" d="M3 2v16l4.2-4.2 2.8 6.5 3.2-1.4-2.8-6.5 5.6-.4z"/></svg>') 3 2, auto;
+  /* Native royal blue default and pointer cursors ONLY for true mouse devices with hover & fine pointer */
+  @media (hover: hover) and (pointer: fine) {
+    body, html {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232563eb" stroke="%23ffffff" stroke-width="0.6" stroke-linejoin="round" d="M3 2v16l4.2-4.2 2.8 6.5 3.2-1.4-2.8-6.5 5.6-.4z"/></svg>') 3 2, auto;
+    }
+
+    a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232563eb" stroke="%23ffffff" stroke-width="0.6" stroke-linejoin="round" d="M3 2v16l4.2-4.2 2.8 6.5 3.2-1.4-2.8-6.5 5.6-.4z"/></svg>') 3 2, pointer !important;
+    }
   }
 
-  a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232563eb" stroke="%23ffffff" stroke-width="0.6" stroke-linejoin="round" d="M3 2v16l4.2-4.2 2.8 6.5 3.2-1.4-2.8-6.5 5.6-.4z"/></svg>') 3 2, pointer !important;
+  /* For all touch devices, mobile, tablet, TV: strictly standard native cursors, never any custom cursor */
+  @media (hover: none), (pointer: coarse) {
+    body, html, a, button, [role="button"], input, select, textarea, label {
+      cursor: auto !important;
+    }
+    a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
+      cursor: pointer !important;
+    }
+    .custom-cursor,
+    [data-cursor] {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
   }
 
   input[type="text"], input[type="email"], textarea {

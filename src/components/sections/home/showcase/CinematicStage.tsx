@@ -31,16 +31,19 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
       ref={ref}
       className="
         relative
-        h-[82vh]
-        sm:h-[78vh]
+        h-auto
+        py-8
+        sm:py-12
+        md:py-0
         md:h-[74vh]
-        min-h-[480px]
-        max-h-[860px]
+        md:min-h-[480px]
+        md:max-h-[860px]
         w-full
         flex
         items-center
         justify-center
-        px-4
+        px-3
+        xs:px-4
         sm:px-8
       "
       aria-label={`Project ${index + 1}: ${project.title}`}
@@ -68,11 +71,14 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
           relative
           w-full
           max-w-7xl
-          h-[min(88vh,640px)]
-          min-h-[470px]
+          h-auto
+          pb-6
+          sm:pb-8
+          md:pb-0
           md:h-[min(72vh,640px)]
           md:min-h-[520px]
-          rounded-[28px]
+          rounded-[24px]
+          sm:rounded-[28px]
           overflow-hidden
           border
           border-white/[0.09]
@@ -99,10 +105,10 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
         />
 
         {/* ===================================================== */}
-        {/* IMAGE — full-bleed cinematic frame                        */}
+        {/* IMAGE — full-bleed cinematic frame                    */}
         {/* ===================================================== */}
 
-        <div className="relative h-[48%] sm:h-[52%] md:absolute md:inset-0 md:h-full overflow-hidden">
+        <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full md:aspect-auto md:absolute md:inset-0 md:h-full overflow-hidden">
           <motion.img
             src={project.image}
             alt={`${project.title} screenshot`}
@@ -190,7 +196,7 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
             </div>
 
             {/* Title + accent rule */}
-            <h3 className="font-heading font-extrabold text-white text-2xl sm:text-3xl lg:text-[2.65rem] leading-[1.02] tracking-tight">
+            <h3 className="font-heading font-extrabold text-white text-xl sm:text-2xl lg:text-[2.65rem] leading-[1.02] tracking-tight">
               {project.title}
             </h3>
             <div

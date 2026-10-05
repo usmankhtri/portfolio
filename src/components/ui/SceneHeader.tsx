@@ -37,7 +37,7 @@ export const SceneHeader = ({ eyebrow, title, sub, className }: SceneHeaderProps
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.7, ease: APPLE_EASE }}
       className="font-heading font-extrabold tracking-tighter text-white"
-      style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}
+      style={{ fontSize: 'clamp(1.5rem, 3.8vw, 3.4rem)' }}
     >
       {title}
     </motion.h2>

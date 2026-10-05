@@ -34,7 +34,7 @@ export const StageRotator = () => {
             {letters.map((char, i) => (
               <motion.span
                 key={`${word}-${i}`}
-                className="inline-block font-semibold text-lg sm:text-xl md:text-2xl text-gradient-blue tracking-wide"
+                className="inline-block font-semibold text-sm xs:text-base sm:text-xl md:text-2xl text-gradient-blue tracking-wide"
                 initial={
                   prefersReducedMotion
                     ? { opacity: 1 }

@@ -6,10 +6,50 @@ export const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
+  const [isMouseOnly, setIsMouseOnly] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches
+    const hasHover = window.matchMedia('(hover: hover)').matches
+    const isCoarse = window.matchMedia('(pointer: coarse), (hover: none)').matches
+    return hasFinePointer && hasHover && !isCoarse
+  })
   const cursorVariant = useAppStore((s) => s.cursorVariant)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+
+    // Immediately disable on ANY touch interaction (phones, tablets, touch screens, TV remotes)
+    const onTouch = () => {
+      setIsMouseOnly(false)
+      setIsVisible(false)
+    }
+
+    const checkPointers = () => {
+      const hasFinePointer = window.matchMedia('(pointer: fine)').matches
+      const hasHover = window.matchMedia('(hover: hover)').matches
+      const isCoarse = window.matchMedia('(pointer: coarse), (hover: none)').matches
+      setIsMouseOnly(hasFinePointer && hasHover && !isCoarse)
+    }
+
+    const fineMql = window.matchMedia('(pointer: fine)')
+    const hoverMql = window.matchMedia('(hover: hover)')
+    const coarseMql = window.matchMedia('(pointer: coarse)')
+
+    fineMql.addEventListener('change', checkPointers)
+    hoverMql.addEventListener('change', checkPointers)
+    coarseMql.addEventListener('change', checkPointers)
+    window.addEventListener('touchstart', onTouch, { passive: true, capture: true })
+
+    return () => {
+      fineMql.removeEventListener('change', checkPointers)
+      hoverMql.removeEventListener('change', checkPointers)
+      coarseMql.removeEventListener('change', checkPointers)
+      window.removeEventListener('touchstart', onTouch, { capture: true })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isMouseOnly) return
 
     const handleMouseMove = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY })
@@ -34,7 +74,7 @@ export const CustomCursor = () => {
       document.removeEventListener('mousedown', handleMouseDown)
       document.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isVisible])
+  }, [isVisible, isMouseOnly])
 
   useEffect(() => {
     const handleMouseOver = () => setIsHovered(true)
@@ -49,7 +89,7 @@ export const CustomCursor = () => {
     }
   }, [])
 
-  if (!isVisible) return null
+  if (!isMouseOnly || !isVisible) return null
 
   const cursorSize = cursorVariant === 'button' ? 40 : cursorVariant === 'text' ? 20 : cursorVariant === 'hover' ? 32 : 16
   const borderWidth = isClicking ? 0 : 1.5
@@ -58,7 +98,7 @@ export const CustomCursor = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998] mix-blend-difference"
+      className="custom-cursor fixed top-0 left-0 rounded-full pointer-events-none z-[9998] mix-blend-difference"
       style={{
         width: cursorSize,
         height: cursorSize,

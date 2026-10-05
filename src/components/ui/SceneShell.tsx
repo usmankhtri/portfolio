@@ -24,7 +24,7 @@ export const SceneShell = ({
 
   return (
     <section
-      className={cn('relative py-24 sm:py-28 bg-background overflow-hidden', className)}
+      className={cn('relative py-16 sm:py-24 md:py-28 bg-background overflow-hidden', className)}
       aria-label={label}
     >
       {/* Single accent bloom — the scene's ambient light */}
@@ -41,7 +41,7 @@ export const SceneShell = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0 }}
         transition={{ duration: 0.8, ease: APPLE_EASE }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12"
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 xs:px-6 sm:px-10 lg:px-12"
       >
         {children}
       </motion.div>

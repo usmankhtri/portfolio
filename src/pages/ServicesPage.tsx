@@ -74,7 +74,7 @@ export const ServicesPage = () => {
               <span className="h-px w-10 bg-gradient-to-r from-blue-500/50 to-transparent" />
             </motion.div>
 
-            <h1 className="font-heading font-black tracking-tighter text-white leading-[0.95]" style={{ fontSize: 'clamp(2.8rem, 8vw, 6rem)' }}>
+            <h1 className="font-heading font-black tracking-tighter text-white leading-[0.95]" style={{ fontSize: 'clamp(1.75rem, 5.2vw, 6rem)' }}>
               <span className="block overflow-hidden">
                 <motion.span
                   className="block"

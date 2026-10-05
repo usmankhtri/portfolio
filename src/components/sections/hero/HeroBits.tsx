@@ -33,10 +33,10 @@ export const AvailabilityBadge = () => (
 )
 
 export const MetricsStrip = () => (
-  <div className="flex flex-wrap items-center gap-y-3">
+  <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-0 gap-y-2.5">
     {METRICS.map((metric, i) => (
       <div key={metric} className="flex items-center">
-        {i > 0 && <span className="mx-5 sm:mx-6 h-4 w-px bg-white/10 hidden sm:block" />}
+        {i > 0 && <span className="mx-4 sm:mx-6 h-4 w-px bg-white/10 hidden sm:block" />}
         <span className="text-[11px] sm:text-xs font-medium text-zinc-400">{metric}</span>
       </div>
     ))}
@@ -49,11 +49,11 @@ export const HeroCTAs = () => {
   const githubRef = useMagnetic<HTMLAnchorElement>(0.07)
 
   return (
-    <div className="flex flex-wrap items-center gap-4">
+    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
       <Link
         to="/works"
         ref={primaryCtaRef}
-        className="shine-sweep group px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm text-white font-heading flex items-center justify-center gap-2.5 will-change-transform"
+        className="shine-sweep group min-h-[44px] px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm text-white font-heading flex items-center justify-center gap-2.5 will-change-transform w-full xs:w-auto"
         style={{
           background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
           boxShadow: '0 0 28px rgba(37,99,235,0.35), 0 4px 14px rgba(37,99,235,0.2)',
@@ -66,25 +66,25 @@ export const HeroCTAs = () => {
       <Link
         to="/contact"
         ref={secondaryCtaRef}
-        className="px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm text-zinc-200 font-heading border border-white/12 hover:border-white/25 hover:text-white hover:bg-white/5 transition-all text-center will-change-transform"
+        className="min-h-[44px] px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm text-zinc-200 font-heading border border-white/12 hover:border-white/25 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center text-center will-change-transform w-full xs:w-auto"
       >
         Let's Connect
       </Link>
 
-      <div className="flex items-center gap-4 ml-auto sm:ml-2 pt-2 sm:pt-0">
+      <div className="flex items-center justify-center gap-4 w-full sm:w-auto sm:ml-2 pt-1 sm:pt-0">
         <a
           href="https://github.com/usmankhatri"
           target="_blank"
           rel="noopener noreferrer"
           ref={githubRef}
           aria-label="GitHub profile"
-          className="flex items-center gap-2 px-3 py-2 rounded-full border border-white/10 hover:border-white/20 text-zinc-400 hover:text-white transition-all text-xs font-medium will-change-transform"
+          className="min-h-[40px] flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 hover:border-white/20 text-zinc-400 hover:text-white transition-all text-xs font-medium will-change-transform"
         >
           <FiGithub className="size-4" />
           <span>GitHub</span>
         </a>
         <div className="flex items-center gap-1.5 text-zinc-500 text-xs">
-          <MapPin className="size-3.5" />
+          <MapPin className="size-3.5 text-blue-400" />
           <span>Hyderabad, PK</span>
         </div>
       </div>

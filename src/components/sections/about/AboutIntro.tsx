@@ -38,7 +38,7 @@ const TiltPhoto = () => {
   }
 
   return (
-    <div style={{ perspective: 1400 }} className="w-full max-w-[340px] sm:max-w-[400px]">
+    <div style={{ perspective: 1400 }} className="w-full max-w-[280px] xs:max-w-[340px] sm:max-w-[400px]">
       <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
@@ -164,7 +164,7 @@ export const AboutIntro = () => {
               viewport={{ once: true, amount: 0 }}
               transition={{ duration: 0.7, ease: APPLE_EASE, delay: 0.05 }}
               className="font-heading font-black tracking-tighter text-white leading-[0.95]"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)' }}
+              style={{ fontSize: 'clamp(1.5rem, 3.8vw, 3.8rem)' }}
             >
               <span className="block">THE ARCHITECT</span>
               <span className="block text-transparent [-webkit-text-stroke:1.5px_rgba(96,165,250,0.55)]">

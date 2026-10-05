@@ -34,7 +34,7 @@ export const Services = () => {
       />
 
       {/* The offering board */}
-      <div className="relative -mx-6 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md sm:-mx-10 lg:-mx-12">
+      <div className="relative mx-0 sm:-mx-6 lg:-mx-12 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md">
         {/* Engineering grid */}
         <div
           aria-hidden
@@ -53,7 +53,7 @@ export const Services = () => {
         />
 
         {/* Board header */}
-        <div className="relative flex items-center justify-between border-b border-white/[0.06] px-6 py-4 sm:px-8">
+        <div className="relative flex items-center justify-between border-b border-white/[0.06] px-4 xs:px-6 py-4 sm:px-8">
           <span className="font-mono text-[10px] tracking-[0.3em] text-blue-400/80">THE OFFERING</span>
           <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase">
             {services.length} capabilities
@@ -71,25 +71,38 @@ export const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.05, duration: 0.6, ease: APPLE_EASE }}
-                className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-white/[0.06] px-6 py-6 transition-colors duration-300 hover:bg-white/[0.02] last:border-b-0 sm:gap-6 sm:px-8 sm:py-7"
+                className="group relative flex flex-col sm:grid sm:grid-cols-[auto_1fr_auto] items-start sm:items-center gap-3.5 sm:gap-6 border-b border-white/[0.06] p-4 xs:p-5 sm:px-8 sm:py-7 transition-colors duration-300 hover:bg-white/[0.02] last:border-b-0"
               >
                 <Ticks />
 
-                {/* Ghost index */}
-                <span className="w-12 select-none font-display font-black text-3xl leading-none text-white/[0.06] transition-colors duration-500 group-hover:text-blue-500/[0.15] sm:text-4xl">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                {/* Mobile header (index + icon + arrow) / Desktop index */}
+                <div className="flex w-full items-center justify-between sm:w-auto">
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 sm:w-12 select-none font-display font-black text-2xl sm:text-4xl leading-none text-white/[0.12] sm:text-white/[0.06] transition-colors duration-500 group-hover:text-blue-500/[0.2]">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      className="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-lg sm:hidden"
+                      style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)' }}
+                    >
+                      <Icon className="size-4 text-primary-light" />
+                    </span>
+                  </div>
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] transition-all duration-300 group-hover:border-blue-500/30 group-hover:bg-blue-500/[0.08] sm:hidden">
+                    <ArrowUpRight className="size-3.5 text-zinc-400 group-hover:text-primary-light" />
+                  </span>
+                </div>
 
-                {/* Icon + title + description */}
-                <div className="flex min-w-0 items-center gap-4">
+                {/* Desktop icon + title + description */}
+                <div className="flex min-w-0 items-start sm:items-center gap-4 w-full">
                   <span
-                    className="flex size-10 shrink-0 items-center justify-center rounded-lg"
+                    className="hidden sm:flex size-10 shrink-0 items-center justify-center rounded-lg"
                     style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)' }}
                   >
                     <Icon className="size-4.5 text-primary-light" />
                   </span>
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                       <h3 className="font-heading font-bold text-white text-base tracking-tight sm:text-lg">
                         {service.title}
                       </h3>
@@ -97,14 +110,14 @@ export const Services = () => {
                         {service.highlight}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs leading-relaxed text-zinc-400 sm:text-sm">
+                    <p className="mt-1.5 sm:mt-1 text-xs leading-relaxed text-zinc-400 sm:text-sm">
                       {service.description}
                     </p>
                   </div>
                 </div>
 
-                {/* Arrow chip */}
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] transition-all duration-300 group-hover:border-blue-500/30 group-hover:bg-blue-500/[0.08]">
+                {/* Desktop Arrow chip */}
+                <span className="hidden sm:flex size-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] transition-all duration-300 group-hover:border-blue-500/30 group-hover:bg-blue-500/[0.08]">
                   <ArrowUpRight className="size-4 text-zinc-500 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary-light" />
                 </span>
               </motion.div>

@@ -128,7 +128,7 @@ export function CinematicShowcase({ projects }: CinematicShowcaseProps) {
         {/* Ghost number */}
         <div
           className="absolute bottom-16 right-12 sm:right-20 font-display leading-none select-none pointer-events-none"
-          style={{ fontSize: 'clamp(80px, 15vw, 200px)', color: featured[activeIndex].color, opacity: 0.12 }}
+          style={{ fontSize: 'clamp(44px, 10vw, 200px)', color: featured[activeIndex].color, opacity: 0.12 }}
           aria-hidden
         >
           {String(activeIndex + 1).padStart(2, '0')}
@@ -142,6 +142,29 @@ export function CinematicShowcase({ projects }: CinematicShowcaseProps) {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, ease: APPLE_EASE }}
           >
+            {/* Mobile/Tablet integrated index counter */}
+            <div className="flex lg:hidden items-center gap-2 mb-3">
+              <span className="font-heading font-black text-sm text-white">
+                {String(activeIndex + 1).padStart(2, '0')}
+              </span>
+              <span className="text-zinc-600 text-xs">/</span>
+              <span className="font-heading text-xs text-zinc-500">
+                {String(featured.length).padStart(2, '0')}
+              </span>
+              <div className="flex items-center gap-1.5 ml-3">
+                {featured.map((p, pi) => (
+                  <button
+                    key={p.id}
+                    onClick={() => scrollToIndex(pi)}
+                    aria-label={`Go to slide ${pi + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${
+                      pi === activeIndex ? 'w-5 bg-blue-400' : 'w-1.5 bg-white/20'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
             {/* Category */}
             <div className="mb-4">
               <span
@@ -155,7 +178,7 @@ export function CinematicShowcase({ projects }: CinematicShowcaseProps) {
             {/* Title */}
             <h2
               className="font-heading font-black tracking-tight text-white mb-3"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+              style={{ fontSize: 'clamp(1.5rem, 3.8vw, 4rem)' }}
             >
               {featured[activeIndex].title}
             </h2>
@@ -226,7 +249,7 @@ export function CinematicShowcase({ projects }: CinematicShowcaseProps) {
       {/* ============================================================= */}
       {/* SIDE NAVIGATION — centered dots + number strip                 */}
       {/* ============================================================= */}
-      <div className="fixed right-6 sm:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-0">
+      <div className="hidden lg:flex fixed right-6 sm:right-8 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-0">
         {/* Prev number */}
         {prevIndex !== null && (
           <span className="text-[10px] font-heading text-zinc-600 mb-1 transition-opacity duration-300">
@@ -268,7 +291,7 @@ export function CinematicShowcase({ projects }: CinematicShowcaseProps) {
       {/* ============================================================= */}
       {/* CENTER COUNTER — large display                                 */}
       {/* ============================================================= */}
-      <div className="fixed left-6 sm:left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center">
+      <div className="hidden lg:flex fixed left-6 sm:left-8 top-1/2 -translate-y-1/2 z-50 flex-col items-center">
         <span className="font-heading text-2xl sm:text-3xl font-bold text-white leading-none">
           {String(activeIndex + 1).padStart(2, '0')}
         </span>

@@ -26,6 +26,9 @@ export const Navbar = () => {
     let lastY = window.scrollY
 
     const handleScroll = () => {
+      // Don't auto-hide when mobile menu is open
+      if (mobileMenuOpen) return
+
       const currentY = window.scrollY
       setScrolled(currentY > 20)
 
@@ -34,7 +37,6 @@ export const Navbar = () => {
         setVisible(true)
       } else if (currentY > lastY + 8) {
         setVisible(false)
-        setMobileMenuOpen(false)
       } else if (currentY < lastY - 8) {
         setVisible(true)
       }
@@ -44,6 +46,27 @@ export const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [mobileMenuOpen])
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
+
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   return (
@@ -149,55 +172,92 @@ export const Navbar = () => {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 xs:p-2 sm:p-2.5 rounded-full bg-[#060C1A] border border-blue-500/30 text-zinc-300 hover:text-white transition-colors"
+            className="md:hidden min-w-[44px] min-h-[44px] p-2.5 rounded-full bg-[#060C1A] border border-blue-500/30 text-zinc-300 hover:text-white transition-colors flex items-center justify-center cursor-pointer"
             aria-label="Toggle Navigation Menu"
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-4 h-4 text-blue-400" /> : <Menu className="w-4 h-4 text-zinc-300" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-blue-400" /> : <Menu className="w-5 h-5 text-zinc-300" />}
           </button>
         </div>
       </motion.nav>
 
-      {/* MOBILE / WATCH MENU */}
+      {/* MOBILE BACKDROP & DRAWER */}
       <AnimatePresence>
-        {mobileMenuOpen && visible && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.18 }}
-            className="pointer-events-auto absolute top-full left-2 right-2 xs:left-4 xs:right-4 mt-2 sm:mt-3 p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-[#030712]/95 border border-blue-500/40 shadow-2xl backdrop-blur-2xl flex flex-col gap-1.5 sm:gap-2 font-['Outfit',sans-serif] md:hidden z-50 max-h-[80vh] overflow-y-auto"
-          >
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path
-              const Icon = item.icon
-
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    'flex items-center gap-3 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all',
-                    isActive
-                      ? 'bg-blue-600/30 border border-blue-500/60 text-white shadow-[0_0_15px_rgba(37,99,235,0.3)]'
-                      : 'text-zinc-400 hover:text-white hover:bg-blue-950/40'
-                  )}
-                >
-                  <Icon className={cn('w-4 h-4', isActive ? 'text-blue-400' : 'text-zinc-400')} />
-                  <span>{item.name}</span>
-                </Link>
-              )
-            })}
-
-            <Link
-              to="/contact"
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider mt-1 shadow-lg shadow-blue-600/30 border border-blue-400/40"
+              className="pointer-events-auto fixed inset-0 z-[calc(var(--z-navbar)-1)] bg-black/70 backdrop-blur-sm md:hidden"
+              aria-hidden="true"
+            />
+
+            {/* Mobile Menu Card */}
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="pointer-events-auto absolute top-full left-3 right-3 xs:left-4 xs:right-4 mt-2 sm:mt-3 p-4 sm:p-5 rounded-3xl bg-[#030712]/98 border border-blue-500/40 shadow-[0_24px_50px_rgba(0,0,0,0.9),0_0_24px_rgba(37,99,235,0.25)] backdrop-blur-2xl flex flex-col gap-2 font-['Outfit',sans-serif] md:hidden z-50 max-h-[85vh] overflow-y-auto"
+              style={{ paddingBottom: 'max(1.25rem, calc(var(--safe-bottom) + 1rem))' }}
             >
-              <span>Let&apos;s Talk</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
+              {/* Header inside drawer */}
+              <div className="flex items-center justify-between px-2 pb-2 border-b border-white/[0.08]">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex size-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                    <span className="relative inline-flex size-2 rounded-full bg-blue-400" />
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+                    Open for freelance
+                  </span>
+                </div>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">Navigation</span>
+              </div>
+
+              {/* Navigation links */}
+              <div className="flex flex-col gap-1.5 pt-1">
+                {navItems.map((item) => {
+                  const isActive = location.pathname === item.path
+                  const Icon = item.icon
+
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        'min-h-[48px] flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all',
+                        isActive
+                          ? 'bg-blue-600/35 border border-blue-500/60 text-white shadow-[0_0_15px_rgba(37,99,235,0.3)]'
+                          : 'text-zinc-300 hover:text-white hover:bg-white/[0.04] active:bg-blue-950/40'
+                      )}
+                    >
+                      <div className="flex items-center gap-3.5">
+                        <Icon className={cn('w-4 h-4', isActive ? 'text-blue-400' : 'text-zinc-400')} />
+                        <span>{item.name}</span>
+                      </div>
+                      <ArrowUpRight className={cn('w-3.5 h-3.5 opacity-60', isActive ? 'text-blue-300' : 'text-zinc-500')} />
+                    </Link>
+                  )
+                })}
+              </div>
+
+              {/* Primary action */}
+              <Link
+                to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="min-h-[48px] flex items-center justify-between px-5 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white text-xs font-black uppercase tracking-wider mt-2 shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 active:scale-[0.98] transition-transform"
+              >
+                <span>Let&apos;s Talk</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
       </header>

@@ -132,10 +132,11 @@ export const CreativeStatsBar = ({ data = STATS_DATA }: { data?: StatItem[] }) =
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.2, ease: 'easeOut', delay: index * 0.08 }}
                 className={cn(
-                  'group relative flex flex-col justify-between gap-6 p-7 sm:p-10 cursor-default will-change-transform',
+                  'group relative flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 p-3.5 xs:p-5 sm:p-7 lg:p-10 cursor-default will-change-transform',
                   'hover:border-blue-500/30 hover:bg-blue-950/20 transition-colors duration-300',
+                  index % 2 === 1 && 'border-l border-white/[0.06]',
                   index > 0 && 'lg:border-l border-white/[0.06]',
-                  index >= 2 && 'border-t lg:border-t-0',
+                  index >= 2 && 'border-t lg:border-t-0 border-white/[0.06]',
                 )}
               >
                 {/* Film-style corner ticks, appear on hover */}
@@ -148,11 +149,11 @@ export const CreativeStatsBar = ({ data = STATS_DATA }: { data?: StatItem[] }) =
                     0{index + 1}
                   </span>
                   <span
-                    className="flex size-11 items-center justify-center rounded-lg border transition-colors duration-500 group-hover:bg-white/[0.04]"
+                    className="flex size-8 xs:size-9 sm:size-11 items-center justify-center rounded-lg border transition-colors duration-500 group-hover:bg-white/[0.04]"
                     style={{ borderColor: stat.borderColor, background: stat.bgColor }}
                   >
                     <Icon
-                      className="size-5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
+                      className="size-4 sm:size-5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
                       style={{ color: stat.color }}
                     />
                   </span>
@@ -163,7 +164,7 @@ export const CreativeStatsBar = ({ data = STATS_DATA }: { data?: StatItem[] }) =
                   className="bg-clip-text text-transparent"
                   style={{ backgroundImage: `linear-gradient(135deg, #E0F2FE 0%, ${stat.color} 60%)` }}
                 >
-                  <span className="font-display font-black text-4xl leading-none tracking-tighter sm:text-5xl lg:text-6xl">
+                  <span className="font-display font-black text-2xl xs:text-3xl sm:text-4xl lg:text-6xl leading-none tracking-tighter">
                     <Counter value={stat.value} />
                   </span>
                 </div>

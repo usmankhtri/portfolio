@@ -62,7 +62,7 @@ export const AboutScene = () => {
 
       {/* The Lead file — one instrument board holding portrait + dossier,
           pulled out to the full section width like the project cards */}
-      <div className="relative -mx-6 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md sm:-mx-10 lg:-mx-12">
+      <div className="relative mx-0 sm:-mx-6 lg:-mx-12 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md">
         {/* Engineering grid */}
         <div
           aria-hidden
@@ -89,7 +89,7 @@ export const AboutScene = () => {
             transition={{ duration: 0.8, ease: APPLE_EASE }}
             className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/[0.06]"
           >
-            <div className="relative h-full min-h-[420px] overflow-hidden">
+            <div className="relative h-60 xs:h-72 sm:h-80 lg:h-full lg:min-h-[420px] overflow-hidden">
               <img
                 src="/3potrait.png"
                 alt="Usman Khatri — focused and precise"
@@ -135,14 +135,14 @@ export const AboutScene = () => {
             className="lg:col-span-7 flex flex-col"
           >
             {/* Brief */}
-            <div className="group relative border-t border-white/[0.06] first:border-t-0 p-6 sm:p-7">
+            <div className="group relative border-t border-white/[0.06] first:border-t-0 p-5 xs:p-6 sm:p-7">
               <Ticks />
               <Kicker index="01" text="Brief" />
               <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">{about.bio}</p>
             </div>
 
             {/* Philosophy */}
-            <div className="group relative border-t border-white/[0.06] p-6 sm:p-7">
+            <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
               <Ticks />
               <Kicker index="02" text="Philosophy" />
               <div className="relative">
@@ -156,7 +156,7 @@ export const AboutScene = () => {
             </div>
 
             {/* Coordinates */}
-            <div className="group relative border-t border-white/[0.06] p-6 sm:p-7">
+            <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
               <Ticks />
               <Kicker index="03" text="Coordinates" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.06]">
@@ -180,7 +180,7 @@ export const AboutScene = () => {
             </div>
 
             {/* Arsenal — the top five specialities */}
-            <div className="group relative border-t border-white/[0.06] p-6 sm:p-7">
+            <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
               <Ticks />
               <Kicker index="04" text="Arsenal" />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">

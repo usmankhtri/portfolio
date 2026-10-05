@@ -76,7 +76,7 @@ export function IdentityScene({ paused }: { paused: boolean }) {
         <h2
           className="font-heading font-black leading-[1.05] tracking-tight text-white"
           style={{
-            fontSize: 'clamp(1.9rem, min(5.6vw, 7.5vh), 4.2rem)',
+            fontSize: 'clamp(1.5rem, min(5.2vw, 6.5vh), 4.2rem)',
             textShadow: '0 0 22px rgba(96,165,250,0.18)',
           }}
         >

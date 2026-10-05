@@ -50,7 +50,7 @@ export const Works = () => {
 
               <motion.h1
                 className="font-heading font-black tracking-tighter text-white leading-[0.95]"
-                style={{ fontSize: 'clamp(2.4rem, 6vw, 5rem)' }}
+                style={{ fontSize: 'clamp(1.75rem, 4.8vw, 5rem)' }}
               >
                 <span className="inline-block overflow-hidden align-top pb-1 mr-3 sm:mr-4">
                   <motion.span initial={{ y: '112%' }} animate={{ y: 0 }} transition={{ delay: 0.1, duration: 0.8, ease: APPLE_EASE }}>

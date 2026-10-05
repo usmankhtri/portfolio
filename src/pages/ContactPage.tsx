@@ -1,4 +1,4 @@
-﻿import { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { SEO } from '../components/SEO'
 import { APPLE_EASE, cn } from '../lib/utils'
 import { useForm } from 'react-hook-form'
@@ -188,7 +188,7 @@ export const ContactPage = () => {
               <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-300 font-heading">Available for new projects</span>
             </motion.div>
 
-            <h1 className="font-heading font-black tracking-tighter text-white leading-[0.92]" style={{ fontSize: 'clamp(2.8rem, 8vw, 6.5rem)' }}>
+            <h1 className="font-heading font-black tracking-tighter text-white leading-[0.92]" style={{ fontSize: 'clamp(1.75rem, 5.2vw, 6.5rem)' }}>
               {['LET US BUILD', 'SOMETHING', 'REMARKABLE'].map((line, li) => (
                 <span key={li} className="block overflow-hidden">
                   <motion.span
@@ -236,7 +236,7 @@ export const ContactPage = () => {
                 <span className="h-px w-10 bg-blue-500/40" />
               </motion.div>
               <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ delay: 0.1, duration: 0.6, ease: APPLE_EASE }}
-                className="font-heading font-black tracking-tight text-white" style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)' }}>
+                className="font-heading font-black tracking-tight text-white" style={{ fontSize: 'clamp(1.45rem, 3.6vw, 3.2rem)' }}>
                 Send a Message
               </motion.h2>
               <motion.p initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ delay: 0.2, duration: 0.5, ease: APPLE_EASE }}

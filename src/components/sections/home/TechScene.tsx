@@ -76,8 +76,8 @@ export const TechScene = () => (
           })}
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-32 bg-gradient-to-r from-background to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-32 bg-gradient-to-l from-background to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-10 xs:w-16 sm:w-32 bg-gradient-to-r from-background to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-10 xs:w-16 sm:w-32 bg-gradient-to-l from-background to-transparent z-10" />
     </div>
 
     {/* Four numbered pillars — hairline rows */}

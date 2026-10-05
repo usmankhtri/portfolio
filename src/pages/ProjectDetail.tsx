@@ -182,7 +182,7 @@ export const ProjectDetail = () => {
           >
             <h1
               className="font-heading font-extrabold tracking-tighter text-white mb-2 sm:mb-3"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4.5rem)' }}
+              style={{ fontSize: 'clamp(1.5rem, 3.8vw, 4.5rem)' }}
             >
               {project.title}
             </h1>

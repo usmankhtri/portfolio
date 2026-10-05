@@ -110,22 +110,22 @@ export const HeroStage = () => {
       {/* Content — sits above the spotlight so the cursor beam lights the
           backdrop only, never the type */}
       <motion.div
-        className="relative z-30 w-full max-w-5xl mx-auto px-6 sm:px-10 text-center flex flex-col items-center"
-        style={{ paddingTop: 'clamp(6rem, 14vh, 8.5rem)', paddingBottom: 'clamp(4rem, 10vh, 7rem)' }}
+        className="relative z-30 w-full max-w-5xl mx-auto px-4 xs:px-6 sm:px-10 text-center flex flex-col items-center"
+        style={{ paddingTop: 'clamp(5.5rem, 14vh, 8.5rem)', paddingBottom: 'clamp(3.5rem, 10vh, 7rem)' }}
         initial={arrive ? { opacity: 0, y: 26, filter: 'blur(10px)' } : false}
         animate={arrive ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
         transition={arrive ? { duration: 1.1, delay: 0.35, ease: APPLE_EASE } : undefined}
       >
-        <motion.div {...fadeUp(0.1)} className="mb-7">
+        <motion.div {...fadeUp(0.1)} className="mb-6 sm:mb-7">
           <AvailabilityBadge />
         </motion.div>
 
         {/* 3D standing letters — light up in a wave on hover */}
         <h1
           className="hero-title font-heading font-black leading-[0.92] tracking-tighter text-white"
-          style={{ fontSize: 'clamp(3rem, 9vw, 7.5rem)', perspective: 900 }}
+          style={{ fontSize: 'clamp(1.85rem, 5.6vw, 7.5rem)', perspective: 900 }}
         >
-          <span className="flex flex-wrap justify-center">
+          <span className="flex flex-wrap justify-center items-center">
             {FIRST.map((char, i) => (
               <motion.span
                 key={`f-${i}`}
