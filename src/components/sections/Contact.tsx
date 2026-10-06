@@ -320,13 +320,13 @@ export const Contact = () => {
           transition={{ delay: 0.5, duration: 0.6, ease: APPLE_EASE }}
           className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-zinc-500 sm:text-base px-2"
         >
-          A project, a collaboration, or just an interesting idea — drop a transmission.
+          A project, a collaboration, or just an interesting idea — feel free to reach out.
           I reply fast, and I build faster.
         </motion.p>
       </div>
 
       {/* ============================================================= */}
-      {/* THE BOARD — console left, form right, all systems live        */}
+      {/* THE BOARD — info left, form right                              */}
       {/* ============================================================= */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
@@ -415,7 +415,7 @@ export const Contact = () => {
               className="mb-8 flex w-full items-center justify-between"
             >
               <span className="font-mono text-[10px] tracking-[0.25em] text-zinc-500 uppercase">
-                Signal / Live
+                Status / Available
               </span>
               <Equalizer />
             </motion.div>
@@ -456,7 +456,7 @@ export const Contact = () => {
               </span>
             </motion.div>
 
-            {/* The channel */}
+            {/* Email link */}
             <motion.a
               href="mailto:hello@usman.dev"
               initial={{ opacity: 0, y: 12 }}
@@ -475,7 +475,7 @@ export const Contact = () => {
               transition={{ delay: 0.55, duration: 0.6, ease: APPLE_EASE }}
               className="mt-2.5 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600"
             >
-              The fastest line to the studio
+              Direct email contact
             </motion.p>
 
             {/* Meta rows */}
@@ -556,10 +556,10 @@ export const Contact = () => {
           >
             <div className="mb-8">
               <p className="font-heading font-bold text-white text-xl sm:text-2xl">
-                Send a Transmission
+                Send a Message
               </p>
               <p className="mt-1.5 text-sm text-zinc-500">
-                Fill the channel — I'll lock on within 24 hours.
+                Have an inquiry or project in mind? I'll respond within 24 hours.
               </p>
             </div>
 
@@ -599,7 +599,7 @@ export const Contact = () => {
                   </span>
                   <div>
                     <p className="mb-1.5 font-heading font-bold text-white text-lg sm:text-xl">
-                      Transmission Received
+                      Message Received
                     </p>
                     <p className="text-xs text-zinc-400 sm:text-sm">
                       I'll get back to you within 24 hours.
@@ -653,7 +653,7 @@ export const Contact = () => {
                       className="flex items-center gap-2.5 rounded-xl border border-blue-500/20 bg-blue-500/8 px-4 py-3 text-xs text-blue-300 sm:text-sm"
                     >
                       <AlertCircle className="size-4 flex-shrink-0" />
-                      <span>Transmission failed — please try again.</span>
+                      <span>Message failed to send — please try again.</span>
                     </motion.div>
                   )}
 
@@ -677,7 +677,7 @@ export const Contact = () => {
                           className="flex items-center gap-2"
                         >
                           <span className="size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Transmitting…
+                          Sending…
                         </motion.span>
                       ) : (
                         <motion.span
@@ -688,7 +688,7 @@ export const Contact = () => {
                           transition={{ duration: 0.5, ease: 'easeIn' }}
                           className="flex items-center gap-3"
                         >
-                          Send Transmission
+                          Send Message
                           <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </motion.span>
                       )}
@@ -696,7 +696,7 @@ export const Contact = () => {
                   </button>
 
                   <p className="text-center font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-600">
-                    No spam · encrypted · stays private
+                    No spam · strictly confidential
                   </p>
                 </motion.form>
               )}

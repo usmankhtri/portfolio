@@ -191,7 +191,7 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
                 <span className="relative inline-flex w-2 h-2 rounded-full" style={{ background: accent }} />
               </span>
               <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold">
-                Featured Build · {project.role}
+                Featured Project · {project.role}
               </span>
             </div>
 

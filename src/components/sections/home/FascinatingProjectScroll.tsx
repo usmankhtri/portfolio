@@ -77,7 +77,7 @@ export const FascinatingProjectScroll = () => {
       {/* ========================================================= */}
 
       <ShowcaseMarquee
-        words={['Selected Works', 'The Showreel']}
+        words={['Selected Projects', 'Case Studies']}
         className="relative z-20"
       />
 

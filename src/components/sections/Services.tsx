@@ -54,9 +54,9 @@ export const Services = () => {
 
         {/* Board header */}
         <div className="relative flex items-center justify-between border-b border-white/[0.06] px-4 xs:px-6 py-4 sm:px-8">
-          <span className="font-mono text-[10px] tracking-[0.3em] text-blue-400/80">THE OFFERING</span>
+          <span className="font-mono text-[10px] tracking-[0.3em] text-blue-400/80">SERVICES &amp; EXPERTISE</span>
           <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase">
-            {services.length} capabilities
+            {services.length} services
           </span>
         </div>
 

@@ -386,7 +386,7 @@ export const portfolioData = {
     },
   ],
   // Canonical tech catalog — single source of truth for the tech strip,
-  // the About tech arsenal, and the hero core stack. Icons are resolved by
+  // the About tech stack, and the hero core stack. Icons are resolved by
   // name via src/lib/techIcons.ts (presentation concern, kept out of data).
   techStack: [
     { name: 'TypeScript', color: '#3B82F6', category: 'Frontend', tag: 'Language', level: 'Primary' },

@@ -62,38 +62,38 @@ export function CraftScene({ paused }: { paused: boolean }) {
         }}
       />
 
-      {/* Film-slate heading */}
+      {/* Section heading */}
       <motion.h2
         className="absolute left-6 sm:left-10 top-[7vh] z-10 font-heading font-black tracking-[0.3em] text-white/90 text-base sm:text-lg"
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.7, ease: APPLE_EASE }}
       >
-        THE <span className="text-gradient-blue">CRAFT.</span>
+        THE <span className="text-gradient-blue">WORKFLOW.</span>
       </motion.h2>
 
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center px-5 pb-[5vh]">
-        {/* The draft board */}
+        {/* The process board */}
         <motion.div
           className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0b0f1a]/95"
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.7, ease: APPLE_EASE }}
         >
-          {/* Drafting corner ticks */}
+          {/* Corner ticks */}
           <span aria-hidden className="absolute -left-px -top-px h-3.5 w-3.5 rounded-tl-2xl border-l border-t border-white/15" />
           <span aria-hidden className="absolute -right-px -top-px h-3.5 w-3.5 rounded-tr-2xl border-r border-t border-white/15" />
           <span aria-hidden className="absolute -bottom-px -left-px h-3.5 w-3.5 rounded-bl-2xl border-b border-l border-white/15" />
           <span aria-hidden className="absolute -bottom-px -right-px h-3.5 w-3.5 rounded-br-2xl border-b border-r border-white/15" />
 
-          {/* Editor chrome */}
+          {/* Chrome header */}
           <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
             <div className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-white/15" />
               <span className="h-2 w-2 rounded-full bg-white/15" />
               <span className="h-2 w-2 rounded-full bg-blue-400/60" />
             </div>
-            <span className="font-mono text-[8px] tracking-[0.3em] text-white/30">DRAFT — V.2.6.1</span>
+            <span className="font-mono text-[8px] tracking-[0.3em] text-white/30">DEVELOPMENT PROCESS</span>
           </div>
 
           {/* Pipeline tabs — clickable */}
@@ -189,7 +189,7 @@ export function CraftScene({ paused }: { paused: boolean }) {
 
           {/* Status rail */}
           <div className="flex items-center justify-between border-t border-white/[0.06] px-5 py-2.5">
-            <span className="font-mono text-[8px] tracking-[0.3em] text-white/30">SCENE 03 — THE CRAFT</span>
+            <span className="font-mono text-[8px] tracking-[0.3em] text-white/30">STAGE 03 — WORKFLOW</span>
             <span className="flex items-center gap-1.5">
               {STAGES.map((_, i) => (
                 <span
@@ -200,7 +200,7 @@ export function CraftScene({ paused }: { paused: boolean }) {
                 />
               ))}
               <span className="ml-2 font-mono text-[8px] tracking-[0.3em] text-blue-300/50">
-                PIPELINE {tab + 1} / {STAGES.length}
+                STEP {tab + 1} / {STAGES.length}
               </span>
             </span>
           </div>

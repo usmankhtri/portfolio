@@ -13,7 +13,7 @@ export const EndCredits = () => {
 
   return (
     <div className="relative">
-      {/* Credits ticker of the full tech arsenal */}
+      {/* Ticker of full tech stack */}
       <ShowcaseMarquee words={techWords} variant="ticker" />
 
       {/* Closing CTA */}
@@ -24,12 +24,12 @@ export const EndCredits = () => {
         transition={{ duration: 0.7, ease: APPLE_EASE }}
         className="relative z-20 flex flex-col items-center gap-5 px-6 pt-10 pb-16 sm:pb-20 text-center"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 font-heading font-semibold">End Credits</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 font-heading font-semibold">More Work</p>
         <h2
           className="font-heading font-extrabold tracking-tighter text-white"
           style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
         >
-          That's the <span className="text-gradient">reel.</span>
+          Explore More <span className="text-gradient">Projects.</span>
         </h2>
         <Link
           to="/works"

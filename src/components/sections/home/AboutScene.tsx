@@ -47,9 +47,9 @@ export const AboutScene = () => {
   const ctaRef = useMagnetic<HTMLAnchorElement>(0.07)
 
   return (
-    <SceneShell label="About the Lead" accent="#60A5FA">
+    <SceneShell label="About Me" accent="#60A5FA">
       <SceneHeader
-        eyebrow="The Lead"
+        eyebrow="About Me"
         title={
           <>
             Engineer by craft.
@@ -57,11 +57,10 @@ export const AboutScene = () => {
             <span className="text-gradient">Designer by instinct.</span>
           </>
         }
-        sub="A selection of the person behind the pixels — how I think, where I work, and what I value."
+        sub="A look into my background, engineering philosophy, and how I build digital products."
       />
 
-      {/* The Lead file — one instrument board holding portrait + dossier,
-          pulled out to the full section width like the project cards */}
+      {/* Profile board */}
       <div className="relative mx-0 sm:-mx-6 lg:-mx-12 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md">
         {/* Engineering grid */}
         <div
@@ -109,7 +108,7 @@ export const AboutScene = () => {
 
               {/* Scene tag */}
               <span className="absolute left-4 top-4 z-10 font-mono text-[9px] tracking-[0.35em] text-white/50">
-                SCENE 01 — THE LEAD
+                PROFILE OVERVIEW
               </span>
 
               {/* Nameplate */}
@@ -126,7 +125,7 @@ export const AboutScene = () => {
             </div>
           </motion.div>
 
-          {/* DOSSIER — brief, philosophy, coordinates, arsenal, CTA */}
+          {/* Details — background, philosophy, contact, skills, CTA */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -134,10 +133,10 @@ export const AboutScene = () => {
             transition={{ duration: 0.8, ease: APPLE_EASE, delay: 0.1 }}
             className="lg:col-span-7 flex flex-col"
           >
-            {/* Brief */}
+            {/* Background */}
             <div className="group relative border-t border-white/[0.06] first:border-t-0 p-5 xs:p-6 sm:p-7">
               <Ticks />
-              <Kicker index="01" text="Brief" />
+              <Kicker index="01" text="Background" />
               <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">{about.bio}</p>
             </div>
 
@@ -155,10 +154,10 @@ export const AboutScene = () => {
               </div>
             </div>
 
-            {/* Coordinates */}
+            {/* Contact & Location */}
             <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
               <Ticks />
-              <Kicker index="03" text="Coordinates" />
+              <Kicker index="03" text="Location & Contact" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.06]">
                 {META.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-center gap-3.5 bg-[#07101f] p-4">
@@ -179,10 +178,10 @@ export const AboutScene = () => {
               </div>
             </div>
 
-            {/* Arsenal — the top five specialities */}
+            {/* Specializations — core capabilities */}
             <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
               <Ticks />
-              <Kicker index="04" text="Arsenal" />
+              <Kicker index="04" text="Specializations" />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {TOP_SKILLS.map((skill, i) => {
                   const Icon = skill.icon
@@ -219,9 +218,9 @@ export const AboutScene = () => {
                 <span className="pointer-events-none absolute left-2 top-2 size-1.5 border-l border-t border-blue-400/25 opacity-0 transition-opacity duration-500 group-hover/cell:opacity-100" />
                 <span className="pointer-events-none absolute bottom-2 right-2 size-1.5 border-b border-r border-blue-400/25 opacity-0 transition-opacity duration-500 group-hover/cell:opacity-100" />
                 <div>
-                  <p className="font-heading font-bold text-white text-sm sm:text-base">See the full arsenal</p>
+                  <p className="font-heading font-bold text-white text-sm sm:text-base">View all skills &amp; technologies</p>
                   <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-zinc-500 uppercase">
-                    16 tools · one workbench
+                    16+ technologies &amp; tools
                   </p>
                 </div>
                 <ArrowUpRight className="size-4 shrink-0 text-primary-light transition-transform duration-300 group-hover/cell:translate-x-0.5 group-hover/cell:-translate-y-0.5" />

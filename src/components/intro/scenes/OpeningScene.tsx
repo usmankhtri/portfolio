@@ -142,7 +142,7 @@ export function OpeningScene({ fontsReady }: { fontsReady: boolean }) {
             className="h-1.5 w-1.5 rounded-full bg-red-500"
             style={{ animation: 'pulse 1.1s ease-in-out infinite' }}
           />
-          <span className="text-[9px] uppercase tracking-[0.45em] text-white/50">Take 1 — Rolling</span>
+          <span className="text-[9px] uppercase tracking-[0.45em] text-white/50">Portfolio Introduction</span>
         </motion.div>
 
         {/* Beat 2 — nameplate, centered so the composition fits any display */}
@@ -156,7 +156,7 @@ export function OpeningScene({ fontsReady }: { fontsReady: boolean }) {
             transition={{ delay: 1.95, duration: 0.7, ease: APPLE_EASE }}
             className="mb-4 text-[10px] sm:text-xs uppercase tracking-[0.6em] text-blue-200/50"
           >
-            A Portfolio Film
+            Portfolio Overview
           </motion.p>
 
           {fontsReady && (

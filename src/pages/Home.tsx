@@ -31,12 +31,12 @@ export const Home = () => {
 
         <SectionDivider />
 
-        {/* SCENE 03 — About the Lead */}
+        {/* SCENE 03 — About Me */}
         <AboutScene />
 
         <SectionDivider />
 
-        {/* SCENE 04 — Tech Arsenal (merged ticker + pillars) */}
+        {/* SCENE 04 — Tech Stack */}
         <TechScene />
 
         <SectionDivider />

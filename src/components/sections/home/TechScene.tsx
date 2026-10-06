@@ -37,9 +37,9 @@ const CATEGORIES = [
 ]
 
 export const TechScene = () => (
-  <SceneShell label="Tech Arsenal" accent="#3B82F6">
+  <SceneShell label="Tech Stack" accent="#3B82F6">
     <SceneHeader
-      eyebrow="The Arsenal"
+      eyebrow="Technologies"
       title={
         <>
           Engineering with <span className="text-gradient">Modern Tech Stack.</span>
