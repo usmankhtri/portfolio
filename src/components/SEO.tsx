@@ -10,7 +10,7 @@ interface SEOProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
 }
 
-const BASE_URL = 'https://usmankhatri.dev'
+const BASE_URL = 'https://usmankhatri.vercel.app'
 const DEFAULT_IMAGE = `${BASE_URL}/usman.png`
 const SITE_NAME = 'Usman Khatri | Full-Stack Architect'
 

@@ -72,6 +72,37 @@
     color: #fff;
   }
 
+  /* Accessible focus indicators for keyboard navigation (WCAG 2.2 AA) */
+  :focus-visible {
+    outline: 2px solid #60A5FA;
+    outline-offset: 3px;
+  }
+
+  /* Accessible skip-to-content link */
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10001;
+    padding: 0.75rem 1.25rem;
+    background-color: #2563EB;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 16px rgba(37, 99, 235, 0.5);
+    transform: translateY(-200%);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
   /* Native royal blue default and pointer cursors ONLY for true mouse devices with hover & fine pointer */
   @media (hover: hover) and (pointer: fine) {
     body, html {

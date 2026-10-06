@@ -50,6 +50,11 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="relative min-h-screen bg-background noise">
+      {/* Skip to main content link for keyboard and screen reader accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       <div
         className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] opacity-20"
         style={{

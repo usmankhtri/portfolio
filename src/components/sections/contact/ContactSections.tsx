@@ -1,7 +1,10 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { APPLE_EASE } from '../../../lib/utils'
 import { ChevronDown, Zap, Globe, Code2, Palette, MessageSquareQuote } from 'lucide-react'
+import { portfolioData } from '../../../data/portfolioData'
+
+const { about } = portfolioData
 
 const FAQS = [
   {
@@ -253,7 +256,7 @@ export const CTASection = () => (
         className="mt-8"
       >
         <a
-          href="mailto:hello@usman.dev"
+          href={`mailto:${about.email}`}
           className="group inline-flex items-center gap-2.5 rounded-xl px-8 py-4 font-heading font-bold text-sm uppercase tracking-widest text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
           style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)', boxShadow: '0 0 40px rgba(37,99,235,0.25)' }}
         >
@@ -268,7 +271,7 @@ export const CTASection = () => (
         transition={{ delay: 0.5, duration: 0.5 }}
         className="mt-5 text-[10px] uppercase tracking-[0.2em] text-zinc-600 font-heading"
       >
-        hello@usman.dev {"\u00B7"} Usually replies within 24 hours
+        {about.email} {"\u00B7"} Usually replies within 24 hours
       </motion.p>
     </div>
   </section>

@@ -9,7 +9,7 @@ import { STATIC_ROUTES, readPortfolioData, getProjectIds } from './lib/routes.mj
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..')
 
-const BASE_URL = 'https://usmankhatri.dev'
+const BASE_URL = 'https://usmankhatri.vercel.app'
 const TODAY = new Date().toISOString().split('T')[0]
 
 const projectIds = getProjectIds(readPortfolioData(root))

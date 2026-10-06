@@ -11,6 +11,7 @@ import { Works } from './pages/Works'
 import { ProjectDetail } from './pages/ProjectDetail'
 import { ServicesPage } from './pages/ServicesPage'
 import { ContactPage } from './pages/ContactPage'
+import { NotFound } from './pages/NotFound'
 import { useAppStore } from './store/useAppStore'
 import { IntroFilm } from './components/intro/IntroFilm'
 
@@ -30,12 +31,10 @@ export default function App() {
 
   const isIntro = location.pathname === '/intro'
 
-  // First-time visitors are routed to the film (client-side only; the
-  // prerendered HTML still serves real route content to crawlers). Returning
-  // visitors land on the film route get sent home. `fromIntro` guards the
-  // brief handoff window where hasSeenIntro has already flipped but the film
-  // is still mounted to fade its bloom out.
-  if (!isServer && !hasSeenIntro && !isIntro) {
+  // First-time visitors landing on root "/" are guided to the intro film
+  // (client-side only). Direct deep links (/about, /works, /contact, etc.)
+  // are never hijacked, preserving deep-link crawlability and direct user intent.
+  if (!isServer && !hasSeenIntro && !isIntro && location.pathname === '/') {
     return <Navigate to="/intro" replace />
   }
   if (!isServer && isIntro && hasSeenIntro && !fromIntro) {
@@ -71,6 +70,7 @@ export default function App() {
                   <Route path="/works/:id" element={<PageTransition><ProjectDetail /></PageTransition>} />
                   <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
                   <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+                  <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                 </Routes>
               </AnimatePresence>
             </Layout>

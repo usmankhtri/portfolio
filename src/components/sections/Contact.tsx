@@ -18,23 +18,29 @@ import {
   MapPin,
   Clock3,
   Zap,
+  Phone,
 } from 'lucide-react'
-import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiFacebook, FiInstagram } from 'react-icons/fi'
 import { SceneShell } from '../ui/SceneShell'
 import { useMagnetic } from '../../hooks/useMagnetic'
+import { portfolioData } from '../../data/portfolioData'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
+const { about } = portfolioData
+
 const SOCIALS = [
-  { label: 'GitHub', icon: FiGithub, href: 'https://github.com/usmankhatri' },
-  { label: 'LinkedIn', icon: FiLinkedin, href: 'https://www.linkedin.com/in/usmankhatri' },
-  { label: 'X / Twitter', icon: FiTwitter, href: 'https://x.com/usmankhatri' },
+  { label: 'GitHub', icon: FiGithub, href: about.github },
+  { label: 'LinkedIn', icon: FiLinkedin, href: about.linkedin },
+  { label: 'Facebook', icon: FiFacebook, href: about.facebook },
+  { label: 'Instagram', icon: FiInstagram, href: about.instagram },
 ]
 
 const META_ROWS = [
-  { icon: MapPin, label: 'BASED IN', value: 'Hyderabad, PK · UTC+5' },
-  { icon: Clock3, label: 'RESPONSE', value: 'Within 24 hours' },
-  { icon: Zap, label: 'STATUS', value: 'Open for freelance' },
+  { icon: MapPin, label: 'BASED IN', value: 'Hyderabad, PK · UTC+5', href: undefined },
+  { icon: Phone, label: 'PHONE', value: about.phone, href: `tel:${about.phone.replace(/\s+/g, '')}` },
+  { icon: Clock3, label: 'RESPONSE', value: 'Within 24 hours', href: undefined },
+  { icon: Zap, label: 'STATUS', value: 'Open for freelance', href: undefined },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -85,6 +91,7 @@ interface FieldProps {
   textarea?: boolean
   rows?: number
   type?: string
+  id?: string
   autoComplete?: string
   name?: string
   value?: string | number | readonly string[]
@@ -94,14 +101,17 @@ interface FieldProps {
   ref?: React.Ref<HTMLInputElement | HTMLTextAreaElement>
 }
 
-const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) => {
+const Field = ({ label, error, textarea, rows = 5, ref, id, ...rest }: FieldProps) => {
   const [focused, setFocused] = useState(false)
   const hasValue = !!rest.value || !!rest.defaultValue
   const floatLabel = focused || hasValue
+  const inputId = id || (typeof rest.name === 'string' ? rest.name : label.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
+  const errorId = `${inputId}-error`
 
   return (
     <div className="relative w-full">
       <label
+        htmlFor={inputId}
         className={cn(
           'pointer-events-none absolute left-0 origin-left select-none z-10 transition-all duration-300 ease-out',
           floatLabel
@@ -126,9 +136,12 @@ const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) =
 
       {textarea ? (
         <textarea
+          id={inputId}
           ref={ref as React.Ref<HTMLTextAreaElement>}
           {...(rest as Record<string, unknown>)}
           rows={rows}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           onFocus={() => setFocused(true)}
           onBlur={(e) => {
             setFocused(false)
@@ -138,8 +151,11 @@ const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) =
         />
       ) : (
         <input
+          id={inputId}
           ref={ref as React.Ref<HTMLInputElement>}
           {...(rest as Record<string, unknown>)}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           onFocus={() => setFocused(true)}
           onBlur={(e) => {
             setFocused(false)
@@ -168,6 +184,8 @@ const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) =
       <AnimatePresence>
         {error && (
           <motion.p
+            id={errorId}
+            role="alert"
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
@@ -212,7 +230,11 @@ export const Contact = () => {
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
     if (!serviceId || !templateId || !publicKey) {
-      setStatus('error')
+      // Graceful mailto fallback if EmailJS keys are not provided
+      const mailtoUrl = `mailto:${about.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`
+      window.location.href = mailtoUrl
+      setStatus('success')
+      reset()
       setTimeout(() => setStatus('idle'), 5000)
       return
     }
@@ -458,14 +480,14 @@ export const Contact = () => {
 
             {/* Email link */}
             <motion.a
-              href="mailto:hello@usman.dev"
+              href={`mailto:${about.email}`}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0 }}
               transition={{ delay: 0.45, duration: 0.6, ease: APPLE_EASE }}
               className="group/channel relative mt-8 font-heading font-bold text-white text-lg transition-colors duration-300 sm:text-2xl"
             >
-              <span className="text-gradient-blue">hello@usman.dev</span>
+              <span className="text-gradient-blue">{about.email}</span>
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-blue-400 to-blue-500 transition-all duration-500 group-hover/channel:w-full" />
             </motion.a>
             <motion.p
@@ -486,18 +508,33 @@ export const Contact = () => {
               transition={{ delay: 0.62, duration: 0.6, ease: APPLE_EASE }}
               className="mt-7 w-full space-y-2.5"
             >
-              {META_ROWS.map(({ icon: Icon, label, value }) => (
-                <div
-                  key={label}
-                  className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 transition-colors duration-300 hover:border-blue-500/25"
-                >
-                  <span className="flex items-center gap-2.5 font-mono text-[10px] tracking-[0.18em] text-zinc-600 uppercase">
-                    <Icon className="size-3.5 text-blue-500/70" />
-                    {label}
-                  </span>
-                  <span className="text-xs font-medium text-zinc-300">{value}</span>
-                </div>
-              ))}
+              {META_ROWS.map(({ icon: Icon, label, value, href }) => {
+                const Content = (
+                  <>
+                    <span className="flex items-center gap-2.5 font-mono text-[10px] tracking-[0.18em] text-zinc-600 uppercase">
+                      <Icon className="size-3.5 text-blue-500/70" />
+                      {label}
+                    </span>
+                    <span className="text-xs font-medium text-zinc-300">{value}</span>
+                  </>
+                )
+                return href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 transition-colors duration-300 hover:border-blue-500/40 hover:text-white"
+                  >
+                    {Content}
+                  </a>
+                ) : (
+                  <div
+                    key={label}
+                    className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 transition-colors duration-300 hover:border-blue-500/25"
+                  >
+                    {Content}
+                  </div>
+                )
+              })}
             </motion.div>
 
             {/* Availability bubble */}
@@ -526,12 +563,12 @@ export const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0 }}
               transition={{ delay: 0.78, duration: 0.6, ease: APPLE_EASE }}
-              className="mt-6 grid w-full grid-cols-3 gap-3"
+              className="mt-6 grid w-full grid-cols-4 gap-2.5"
             >
               {SOCIALS.map(({ label, icon: Icon, href }) => (
                 <a
                   key={label}
-                  aria-label={label}
+                  aria-label={`${label} profile (opens in new tab)`}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"

@@ -13,16 +13,36 @@ import {
   useSpring,
   useMotionTemplate,
 } from 'framer-motion'
-import { CheckCircle, AlertCircle, Mail, MapPin, Clock, Send, ArrowRight } from 'lucide-react'
-import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi'
+import { CheckCircle, AlertCircle, Mail, MapPin, Clock, Phone, Send, ArrowRight } from 'lucide-react'
+import { FiGithub, FiLinkedin, FiFacebook, FiInstagram } from 'react-icons/fi'
 import { StatsBar, FAQSection, TestimonialsSection, CTASection } from '../components/sections/contact/ContactSections'
+import { portfolioData } from '../data/portfolioData'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
+const { about } = portfolioData
+
+const contactJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Usman Khatri | Full-Stack Architect',
+  description: 'Get in touch with Usman Khatri for full-stack engineering, PWA development, AI workflows, or freelance projects.',
+  url: 'https://usmankhatri.vercel.app/contact',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Usman Khatri',
+    telephone: '+92 331 4915447',
+    email: `mailto:${about.email}`,
+    url: 'https://usmankhatri.vercel.app',
+    sameAs: [about.github, about.linkedin, about.facebook, about.instagram],
+  },
+}
+
 const SOCIALS = [
-  { label: 'GitHub', icon: FiGithub, href: 'https://github.com/usmankhatri' },
-  { label: 'LinkedIn', icon: FiLinkedin, href: 'https://www.linkedin.com/in/usmankhatri' },
-  { label: 'X / Twitter', icon: FiTwitter, href: 'https://x.com/usmankhatri' },
+  { label: 'GitHub', icon: FiGithub, href: about.github },
+  { label: 'LinkedIn', icon: FiLinkedin, href: about.linkedin },
+  { label: 'Facebook', icon: FiFacebook, href: about.facebook },
+  { label: 'Instagram', icon: FiInstagram, href: about.instagram },
 ]
 
 interface FieldProps {
@@ -31,6 +51,7 @@ interface FieldProps {
   textarea?: boolean
   rows?: number
   type?: string
+  id?: string
   autoComplete?: string
   name?: string
   value?: string | number | readonly string[]
@@ -40,14 +61,17 @@ interface FieldProps {
   ref?: React.Ref<HTMLInputElement | HTMLTextAreaElement>
 }
 
-const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) => {
+const Field = ({ label, error, textarea, rows = 5, ref, id, ...rest }: FieldProps) => {
   const [focused, setFocused] = useState(false)
   const hasValue = !!rest.value || !!rest.defaultValue
   const floatLabel = focused || hasValue
+  const inputId = id || (typeof rest.name === 'string' ? rest.name : label.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
+  const errorId = `${inputId}-error`
 
   return (
     <div className="relative w-full">
       <label
+        htmlFor={inputId}
         className={cn(
           'pointer-events-none absolute left-0 origin-left select-none z-10 transition-all duration-300 ease-out',
           floatLabel
@@ -60,27 +84,33 @@ const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) =
 
       {textarea ? (
         <textarea
+          id={inputId}
           ref={ref as React.Ref<HTMLTextAreaElement>}
           {...(rest as Record<string, unknown>)}
           rows={rows}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           onFocus={() => setFocused(true)}
           onBlur={(e) => { setFocused(false); rest.onBlur?.(e) }}
           className="w-full pt-8 pb-3 px-0 text-sm text-white bg-transparent outline-none border-none appearance-none focus:ring-0 focus:outline-none transition-colors duration-300 resize-none caret-blue-400"
         />
       ) : (
         <input
+          id={inputId}
           ref={ref as React.Ref<HTMLInputElement>}
           {...(rest as Record<string, unknown>)}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           onFocus={() => setFocused(true)}
           onBlur={(e) => { setFocused(false); rest.onBlur?.(e) }}
           className="w-full pt-6 pb-2.5 px-0 text-sm text-white bg-transparent outline-none border-none appearance-none focus:ring-0 focus:outline-none caret-blue-400"
         />
       )}
 
-      <span className={cn('absolute bottom-0 left-0 right-0 h-px bg-white/10', error && 'bg-red-500/50')} />
+      <span className={cn('absolute bottom-0 left-0 right-0 h-px bg-white/10', error && 'bg-blue-500/60')} />
       <motion.span
         aria-hidden
-        className={cn('absolute bottom-0 left-0 right-0 h-px origin-left bg-blue-500', error && 'bg-red-500')}
+        className={cn('absolute bottom-0 left-0 right-0 h-px origin-left bg-blue-500', error && 'bg-blue-500')}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: focused ? 1 : 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -88,7 +118,7 @@ const Field = ({ label, error, textarea, rows = 5, ref, ...rest }: FieldProps) =
 
       <AnimatePresence>
         {error && (
-          <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} className="mt-1.5 text-xs text-red-400">
+          <motion.p id={errorId} role="alert" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} className="mt-1.5 text-xs text-blue-300">
             {error}
           </motion.p>
         )}
@@ -129,7 +159,11 @@ export const ContactPage = () => {
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
     if (!serviceId || !templateId || !publicKey) {
-      setStatus('error')
+      // Graceful mailto fallback if EmailJS keys are not provided
+      const mailtoUrl = `mailto:${about.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`
+      window.location.href = mailtoUrl
+      setStatus('success')
+      reset()
       setTimeout(() => setStatus('idle'), 5000)
       return
     }
@@ -151,9 +185,14 @@ export const ContactPage = () => {
 
   return (
     <>
-      <SEO title="Contact" description="Get in touch with Usman Khatri for freelance projects, collaborations, or just to say hello." url="/contact" />
+      <SEO
+        title="Contact & Collaboration"
+        description="Get in touch with Usman Khatri for full-stack engineering, PWA development, AI workflows, or freelance projects."
+        url="/contact"
+        jsonLd={contactJsonLd}
+      />
 
-      <div ref={pageRef} className="relative" onMouseMove={onMouseMove}>
+      <main id="main-content" ref={pageRef} className="relative min-h-screen" onMouseMove={onMouseMove}>
         <motion.div aria-hidden className="pointer-events-none fixed inset-0 z-[1]" style={{ background: spotlight }} />
 
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(147,197,253,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(147,197,253,0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -258,8 +297,9 @@ export const ContactPage = () => {
 
                 <div className="space-y-4">
                   {[
-                    { icon: Mail, label: 'Email', value: 'hello@usman.dev', href: 'mailto:hello@usman.dev' },
-                    { icon: MapPin, label: 'Location', value: 'Hyderabad, PK', href: null },
+                    { icon: Mail, label: 'Email', value: about.email, href: `mailto:${about.email}` },
+                    { icon: Phone, label: 'Phone', value: about.phone, href: `tel:${about.phone.replace(/\s+/g, '')}` },
+                    { icon: MapPin, label: 'Location', value: about.location, href: null },
                     { icon: Clock, label: 'Response', value: 'Within 24 hours', href: null },
                   ].map(({ icon: Icon, label, value, href }, i) => (
                     <motion.div key={label} initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: APPLE_EASE }}
@@ -357,7 +397,7 @@ export const ContactPage = () => {
         <TestimonialsSection />
         <FAQSection />
         <CTASection />
-      </div>
+      </main>
     </>
   )
 }

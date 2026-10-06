@@ -11,6 +11,24 @@ import { BentoGrid } from '../components/sections/works/BentoGrid'
 
 const { projects } = portfolioData
 
+const worksJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Selected Works & Case Studies | Usman Khatri',
+  description: 'Production-ready web apps, SaaS platforms, and AI-powered experiences engineered by Usman Khatri.',
+  url: 'https://usmankhatri.vercel.app/works',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: projects.map((project, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: project.title,
+      url: `https://usmankhatri.vercel.app/works/${project.id}`,
+      description: project.description,
+    })),
+  },
+}
+
 type ViewMode = 'cinematic' | 'grid'
 
 export const Works = () => {
@@ -19,12 +37,13 @@ export const Works = () => {
   return (
     <>
       <SEO
-        title="Works"
+        title="Selected Works & Case Studies"
         description="Selected projects by Usman Khatri — full-stack web apps, SaaS platforms, and AI-powered experiences."
         url="/works"
+        jsonLd={worksJsonLd}
       />
 
-      <main className="min-h-screen overflow-hidden">
+      <main id="main-content" className="min-h-screen overflow-hidden">
         {/* Ambient background */}
         <div
           aria-hidden

@@ -86,22 +86,24 @@ export function LoadingScreen() {
         transition={{ duration: 0.7, ease: APPLE_EASE }}
       >
         {/* USMAN */}
-        <motion.h1
+        <motion.div
+          aria-hidden="true"
           {...(prefersReducedMotion ? { initial: { opacity: 1 }, animate: { opacity: 1 } } : entrance(0.15))}
-          className="font-black uppercase leading-none text-white"
+          className="font-black uppercase leading-none text-white select-none"
           style={{ fontSize: 'clamp(2.75rem, 9.5vw, 7.75rem)', letterSpacing: '0.045em' }}
         >
           Usman
-        </motion.h1>
+        </motion.div>
 
         {/* KHATRI */}
-        <motion.h1
+        <motion.div
+          aria-hidden="true"
           {...(prefersReducedMotion ? { initial: { opacity: 1 }, animate: { opacity: 1 } } : entrance(0.42))}
-          className="font-black uppercase leading-none text-gradient-blue mt-[0.14em]"
+          className="font-black uppercase leading-none text-gradient-blue mt-[0.14em] select-none"
           style={{ fontSize: 'clamp(2.75rem, 9.5vw, 7.75rem)', letterSpacing: '0.045em' }}
         >
           Khatri
-        </motion.h1>
+        </motion.div>
 
         {/* Hairline */}
         <motion.div

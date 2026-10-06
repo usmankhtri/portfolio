@@ -113,12 +113,12 @@ export const ProjectDetail = () => {
     name: project.title,
     description: project.description,
     image: project.image,
-    url: `https://usmankhatri.dev/works/${project.id}`,
+    url: `https://usmankhatri.vercel.app/works/${project.id}`,
     dateCreated: project.year,
     creator: {
       '@type': 'Person',
       name: 'Usman Khatri',
-      url: 'https://usmankhatri.dev',
+      url: 'https://usmankhatri.vercel.app',
     },
     keywords: project.tech.join(', '),
   }
@@ -134,7 +134,7 @@ export const ProjectDetail = () => {
         jsonLd={projectJsonLd}
       />
 
-      <main className="min-h-screen pt-16 sm:pt-20 pb-16">
+      <main id="main-content" className="min-h-screen pt-16 sm:pt-20 pb-16">
         <div className="max-w-5xl 2xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-12">
 
           {/* Back */}

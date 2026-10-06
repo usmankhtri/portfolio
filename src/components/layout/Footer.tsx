@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowUp, ArrowUpRight, Clock3, Mail, MapPin, Zap } from 'lucide-react'
-import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi'
+import { ArrowUp, ArrowUpRight, Clock3, Mail, MapPin, Zap, Phone } from 'lucide-react'
+import { FiGithub, FiLinkedin, FiFacebook, FiInstagram } from 'react-icons/fi'
 import { portfolioData } from '../../data/portfolioData'
 import { lenisStore } from '../../lib/lenisStore'
 import { Watermark } from '../ui/Watermark'
@@ -10,9 +10,10 @@ import { APPLE_EASE } from '../../lib/utils'
 const { about } = portfolioData
 
 const SOCIALS = [
-  { label: 'GitHub', icon: FiGithub, href: 'https://github.com/usmankhatri' },
-  { label: 'LinkedIn', icon: FiLinkedin, href: 'https://www.linkedin.com/in/usmankhatri' },
-  { label: 'X / Twitter', icon: FiTwitter, href: 'https://x.com/usmankhatri' },
+  { label: 'GitHub', icon: FiGithub, href: about.github },
+  { label: 'LinkedIn', icon: FiLinkedin, href: about.linkedin },
+  { label: 'Facebook', icon: FiFacebook, href: about.facebook },
+  { label: 'Instagram', icon: FiInstagram, href: about.instagram },
 ]
 
 const NAV_LINKS = [
@@ -176,12 +177,25 @@ export const Footer = () => {
               <Kicker index="02">Connect</Kicker>
               <a
                 href={`mailto:${about.email}`}
-                className="group/mail flex items-center gap-2 text-zinc-300 hover:text-white transition-colors font-mono text-xs mb-1"
+                className="group/mail flex items-center gap-2 text-zinc-300 hover:text-white transition-colors font-mono text-xs mb-2"
+                aria-label={`Send email to ${about.email}`}
               >
                 <Mail className="size-3.5 text-primary-light shrink-0" />
                 <span className="truncate relative">
                   {about.email}
                   <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gradient-to-r from-blue-400 to-blue-500 transition-all duration-300 group-hover/mail:w-full" />
+                </span>
+              </a>
+
+              <a
+                href={`tel:${about.phone.replace(/\s+/g, '')}`}
+                className="group/phone flex items-center gap-2 text-zinc-300 hover:text-white transition-colors font-mono text-xs mb-1"
+                aria-label={`Call Usman Khatri at ${about.phone}`}
+              >
+                <Phone className="size-3.5 text-primary-light shrink-0" />
+                <span className="truncate relative">
+                  {about.phone}
+                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gradient-to-r from-blue-400 to-blue-500 transition-all duration-300 group-hover/phone:w-full" />
                 </span>
               </a>
 

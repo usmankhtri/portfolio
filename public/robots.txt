@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://usmankhatri.dev/sitemap.xml
+Sitemap: https://usmankhatri.vercel.app/sitemap.xml

@@ -25,15 +25,29 @@ const process = [
 export const ServicesPage = () => {
   const ctaRef = useMagnetic<HTMLAnchorElement>(0.06)
 
+  const servicesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Services by Usman Khatri',
+    description: 'Full-Stack Development, PWA Engineering, and AI Integration Services',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'Offer',
+      position: i + 1,
+      name: s.title,
+      description: s.description,
+    })),
+  }
+
   return (
     <>
       <SEO
-        title="Services"
-        description="Full-Stack development, PWA engineering, AI integration, and motion design services by Usman Khatri."
+        title="Services & Architecture"
+        description="Full-Stack MERN development, PWA engineering, and AI integration services by Usman Khatri."
         url="/services"
+        jsonLd={servicesJsonLd}
       />
 
-      <main className="min-h-screen pt-16 sm:pt-20 pb-0 overflow-hidden">
+      <main id="main-content" className="min-h-screen pt-16 sm:pt-20 pb-0 overflow-hidden">
         {/* Ambient background */}
         <div
           aria-hidden

@@ -18,17 +18,18 @@ const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Usman Khatri',
-  url: 'https://usmankhatri.dev',
-  image: 'https://usmankhatri.dev/usman.png',
+  url: 'https://usmankhatri.vercel.app',
+  image: 'https://usmankhatri.vercel.app/usman.png',
   jobTitle: 'Full-Stack Architect',
   description: about.bio,
+  telephone: '+92 331 4915447',
   email: `mailto:${about.email}`,
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Hyderabad',
     addressCountry: 'PK',
   },
-  sameAs: [about.github],
+  sameAs: [about.github, about.linkedin, about.facebook, about.instagram],
   knowsAbout: about.skills,
 }
 
@@ -83,7 +84,7 @@ export const About = () => {
         jsonLd={personJsonLd}
       />
 
-      <main className="min-h-screen pt-16 sm:pt-20 pb-0 overflow-hidden">
+      <main id="main-content" className="min-h-screen pt-16 sm:pt-20 pb-0 overflow-hidden">
         {/* ============================================================= */}
         {/* AMBIENT BACKGROUND — engineering grid + aurora orbs            */}
         {/* ============================================================= */}
