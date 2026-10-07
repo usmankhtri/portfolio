@@ -37,7 +37,7 @@ const TESTIMONIALS = [
   {
     quote: 'Usman turned our vague idea into a polished product that our users genuinely love. The attention to detail is unreal.',
     name: 'Sarah Chen',
-    role: 'Founder, KindaHabit',
+    role: 'Founder & CEO',
     color: '#2563EB',
   },
   {

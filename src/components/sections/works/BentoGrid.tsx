@@ -12,7 +12,6 @@ interface BentoGridProps {
   projects: Project[]
 }
 
-const CATEGORIES = ['All', 'SaaS Platform', 'Content Platform', 'Developer Tooling', 'AI Integration']
 const PER_PAGE = 15
 
 export function BentoGrid({ projects }: BentoGridProps) {
@@ -21,6 +20,11 @@ export function BentoGrid({ projects }: BentoGridProps) {
   const [hovered, setHovered] = useState<string | null>(null)
   const [page, setPage] = useState(1)
   const navigate = useNavigate()
+
+  const categories = useMemo(
+    () => ['All', ...Array.from(new Set(projects.map((p) => p.category)))],
+    [projects]
+  )
 
   const filtered = useMemo(() => {
     return projects.filter((p) => {
@@ -94,7 +98,7 @@ export function BentoGrid({ projects }: BentoGridProps) {
 
         {/* Category filters */}
         <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}

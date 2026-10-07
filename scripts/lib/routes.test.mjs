@@ -49,8 +49,9 @@ describe('getAllRoutes', () => {
 describe('integration with the real portfolio data', () => {
   it('discovers the actual project ids from src/data/portfolioData.ts', () => {
     const ids = getProjectIds(readPortfolioData(root))
-    expect(ids.length).toBeGreaterThan(0)
-    expect(ids).toContain('kindahabit')
-    expect(ids).toContain('devstudio')
+    expect(ids.length).toBe(3)
+    expect(ids).toContain('migrationmap')
+    expect(ids).toContain('hookscope')
+    expect(ids).toContain('impactcheck')
   })
 })

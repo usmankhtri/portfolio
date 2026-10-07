@@ -73,7 +73,7 @@ export const HeroCTAs = () => {
 
       <div className="flex items-center justify-center gap-4 w-full sm:w-auto sm:ml-2 pt-1 sm:pt-0">
         <a
-          href="https://github.com/usmankhatri"
+          href="https://github.com/usmankhtri"
           target="_blank"
           rel="noopener noreferrer"
           ref={githubRef}
