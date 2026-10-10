@@ -102,7 +102,7 @@ export const AboutIntro = () => {
   const connectRef = useMagnetic<HTMLAnchorElement>(0.06)
 
   return (
-    <section className="relative py-20 sm:py-28 bg-background overflow-hidden" aria-label="Introduction">
+    <section className="relative py-8 sm:py-12 bg-background overflow-hidden" aria-label="Introduction">
       {/* Ambient background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 bg-grid opacity-30" />

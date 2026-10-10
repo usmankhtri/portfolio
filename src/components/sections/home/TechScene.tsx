@@ -80,8 +80,8 @@ export const TechScene = () => (
       <div className="pointer-events-none absolute inset-y-0 right-0 w-10 xs:w-16 sm:w-32 bg-gradient-to-l from-background to-transparent z-10" />
     </div>
 
-    {/* Four numbered pillars — hairline rows */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.06] border border-white/[0.06] rounded-2xl overflow-hidden">
+    {/* Four pillars — spacious, open individual cards with generous gaps */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
       {CATEGORIES.map((cat, i) => {
         const Icon = cat.icon
         const items = TECH_ITEMS.filter(cat.filter)
@@ -92,27 +92,28 @@ export const TechScene = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ delay: i * 0.07, duration: 0.6, ease: APPLE_EASE }}
-            className="bg-background group"
+            className="rounded-2xl border border-white/[0.08] bg-[#07101f]/90 hover:border-blue-500/30 transition-all duration-300 shadow-xl overflow-hidden group"
           >
-            <SpotGlow className="p-6 sm:p-7 flex flex-col gap-4 h-full">
-              <div className="flex items-start justify-between gap-3">
+            <SpotGlow className="p-6 sm:p-8 flex flex-col gap-5 h-full">
+              <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3.5">
-                  <div className="size-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-                    style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.2)' }}
+                  <div
+                    className="size-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                    style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.25)' }}
                   >
-                    <Icon className="size-4.5 text-primary-light" />
+                    <Icon className="size-5 text-blue-400" />
                   </div>
-                  <h3 className="font-heading font-bold text-white text-base tracking-tight">{cat.name}</h3>
+                  <h3 className="font-heading font-bold text-white text-base sm:text-lg tracking-tight">{cat.name}</h3>
                 </div>
               </div>
 
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{cat.description}</p>
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">{cat.description}</p>
 
-              <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/5">
+              <div className="flex flex-wrap gap-2 sm:gap-2.5 mt-auto pt-4 border-t border-white/[0.06]">
                 {items.map((t) => (
                   <span
                     key={t.name}
-                    className="px-2 py-0.5 rounded-md text-[10px] font-medium text-zinc-400 bg-white/[0.03] border border-white/[0.06] group-hover:border-primary/25 group-hover:text-zinc-200 transition-colors duration-300"
+                    className="px-2.5 py-1 rounded-lg text-xs font-medium text-zinc-300 bg-white/[0.04] border border-white/[0.08] group-hover:border-blue-500/30 group-hover:text-white transition-colors duration-300"
                   >
                     {t.name}
                   </span>

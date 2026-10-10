@@ -1,8 +1,9 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { motion, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowUpRight, CheckCircle2, ExternalLink, MoveUpRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useProjectScrub, type Project } from './useProjectScrub'
+import { useAppStore } from '../../../../store/useAppStore'
 
 interface CinematicStageProps {
   project: Project
@@ -12,11 +13,12 @@ interface CinematicStageProps {
 export const CinematicStage = ({ project, index }: CinematicStageProps) => {
   const ref = useRef<HTMLElement | null>(null)
   const glareRef = useRef<HTMLDivElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const navigate = useNavigate()
+  const setCursorVariant = useAppStore((s) => s.setCursorVariant)
   const s = useProjectScrub(ref)
   const accent = project.color ?? '#2563EB'
   const flip = index % 2 === 1
-
-  const imageFilter = useTransform(s.brightness, (b) => `brightness(${b})`)
 
   const handleGlare = (e: React.MouseEvent) => {
     const el = glareRef.current
@@ -32,12 +34,6 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
       className="
         relative
         h-auto
-        py-8
-        sm:py-12
-        md:py-0
-        md:h-[74vh]
-        md:min-h-[480px]
-        md:max-h-[860px]
         w-full
         flex
         items-center
@@ -45,26 +41,40 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
         px-3
         xs:px-4
         sm:px-8
+        py-0
       "
       aria-label={`Project ${index + 1}: ${project.title}`}
     >
       {/* Accent glow bloom — per-project color grading */}
       <motion.div
         style={{
-          opacity: s.glowOpacity,
-          background: `radial-gradient(circle, ${accent}1F 0%, transparent 70%)`,
+          opacity: isHovered ? 0.38 : s.glowOpacity,
+          background: `radial-gradient(circle, ${accent}30 0%, transparent 70%)`,
         }}
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[min(96vw,1280px)] h-[480px] rounded-full blur-[110px] pointer-events-none"
+        className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[min(96vw,1280px)] h-[480px] rounded-full blur-[110px] pointer-events-none transition-opacity duration-500"
       />
 
       <motion.article
         onMouseMove={handleGlare}
+        onMouseEnter={() => {
+          setIsHovered(true)
+          setCursorVariant('hover')
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false)
+          setCursorVariant('default')
+        }}
+        onClick={(e) => {
+          const target = e.target as HTMLElement
+          if (target.closest('a, button')) return
+          navigate(`/works/${project.id}`)
+        }}
         style={{
-          opacity: s.cardOpacity,
-          y: s.cardY,
-          scale: s.cardScale,
-          rotateX: s.cardRotateX,
-          clipPath: s.cardClip,
+          transform: isHovered ? 'translateY(-6px) scale(1.008)' : 'translateY(0px) scale(1)',
+          borderColor: isHovered ? `${accent}70` : 'rgba(255,255,255,0.09)',
+          boxShadow: isHovered
+            ? `0 35px 85px -15px rgba(0,0,0,0.85), 0 0 50px ${accent}33, inset 0 1px 0 rgba(255,255,255,0.18)`
+            : '0 25px 60px rgba(0,0,0,0.55)',
         }}
         className="
           group
@@ -81,9 +91,11 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
           sm:rounded-[28px]
           overflow-hidden
           border
-          border-white/[0.09]
           bg-[#07101f]
-          shadow-[0_35px_100px_rgba(0,0,0,0.55)]
+          cursor-pointer
+          transition-all
+          duration-500
+          ease-out
           will-change-transform
         "
       >
@@ -96,28 +108,26 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
           }}
         />
 
-        {/* Top edge light — accent tinted */}
+        {/* Top edge light — accent tinted with hover boost */}
         <div
-          className="absolute z-30 top-0 left-[12%] right-[12%] h-px"
+          className="absolute z-30 top-0 left-[12%] right-[12%] h-px transition-all duration-500"
           style={{
-            background: `linear-gradient(90deg, transparent, ${accent}B3, transparent)`,
+            background: `linear-gradient(90deg, transparent, ${isHovered ? accent : `${accent}B3`}, transparent)`,
+            boxShadow: isHovered ? `0 0 12px ${accent}` : 'none',
           }}
         />
 
         {/* ===================================================== */}
-        {/* IMAGE — full-bleed cinematic frame                    */}
+        {/* IMAGE — full-bleed cinematic frame with zoom on hover */}
         {/* ===================================================== */}
 
         <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full md:aspect-auto md:absolute md:inset-0 md:h-full overflow-hidden">
-          <motion.img
+          <img
             src={project.image}
             alt={`${project.title} screenshot`}
             style={{
-              scale: s.imageScale,
-              x: s.imageX,
-              y: s.imageY,
-              rotate: s.imageRotate,
-              filter: imageFilter,
+              transform: isHovered ? 'scale(1.055)' : 'scale(1)',
+              filter: isHovered ? 'brightness(1.08)' : 'brightness(1)',
             }}
             className="
               absolute
@@ -126,6 +136,9 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
               h-full
               object-cover
               object-top
+              transition-all
+              duration-700
+              ease-out
               will-change-transform
             "
             loading={index === 0 ? 'eager' : 'lazy'}
@@ -140,11 +153,12 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
           {/* Category chip */}
           <div className="absolute top-4 sm:top-5 left-4 sm:left-5">
             <span
-              className="px-3 py-1.5 rounded-full backdrop-blur-xl text-[11px] font-semibold"
+              className="px-3 py-1.5 rounded-full backdrop-blur-xl text-[11px] font-semibold transition-all duration-300"
               style={{
                 color: accent,
-                background: `${accent}1A`,
-                border: `1px solid ${accent}40`,
+                background: isHovered ? `${accent}30` : `${accent}1A`,
+                border: `1px solid ${isHovered ? `${accent}70` : `${accent}40`}`,
+                boxShadow: isHovered ? `0 0 14px ${accent}40` : 'none',
               }}
             >
               {project.category}
@@ -327,14 +341,17 @@ export const CinematicStage = ({ project, index }: CinematicStageProps) => {
           aria-hidden
           className="pointer-events-none absolute inset-0 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background:
-              'radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.055) 0%, transparent 60%)',
+            background: `radial-gradient(550px circle at var(--gx, 50%) var(--gy, 50%), ${accent}25, rgba(255,255,255,0.08) 25%, transparent 65%)`,
           }}
         />
 
-        {/* Corner decoration */}
+        {/* Corner decoration — interactive indicator */}
         <MoveUpRight
-          className="absolute z-30 bottom-5 right-5 w-4 h-4 text-white/10 transition-colors duration-500 group-hover:text-blue-400/40"
+          className="absolute z-30 bottom-5 right-5 w-4 h-4 transition-all duration-500"
+          style={{
+            color: isHovered ? accent : 'rgba(255,255,255,0.18)',
+            transform: isHovered ? 'translate(3px, -3px) scale(1.2)' : 'translate(0, 0) scale(1)',
+          }}
         />
       </motion.article>
     </section>

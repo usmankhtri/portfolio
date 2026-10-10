@@ -120,8 +120,8 @@ export function BentoGrid({ projects }: BentoGridProps) {
         </span>
       </motion.div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 pb-16 sm:pb-24">
+      {/* Grid — open and spacious */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-16 sm:pb-24">
         <AnimatePresence mode="popLayout">
           {paginated.map((project, i) => {
             const displayIndex = projects.indexOf(project)
@@ -143,10 +143,11 @@ export function BentoGrid({ projects }: BentoGridProps) {
                   onClick={() => navigate(`/works/${project.id}`)}
                   onKeyDown={(e) => e.key === 'Enter' && navigate(`/works/${project.id}`)}
                   aria-label={`View case study: ${project.title}`}
-                  className="relative rounded-2xl overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 transition-all duration-500 h-full flex flex-col"
+                  className="relative rounded-2xl overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 transition-all duration-500 ease-out h-full flex flex-col will-change-transform"
                   style={{
-                    border: `1px solid ${hovered === project.id ? `${project.color}30` : 'rgba(255,255,255,0.06)'}`,
-                    boxShadow: hovered === project.id ? `0 0 40px ${project.color}10, 0 8px 30px rgba(0,0,0,0.3)` : '0 4px 20px rgba(0,0,0,0.2)',
+                    border: `1px solid ${hovered === project.id ? `${project.color}50` : 'rgba(255,255,255,0.06)'}`,
+                    boxShadow: hovered === project.id ? `0 0 45px ${project.color}25, 0 16px 36px rgba(0,0,0,0.4)` : '0 4px 20px rgba(0,0,0,0.2)',
+                    transform: hovered === project.id ? 'translateY(-5px) scale(1.01)' : 'translateY(0px) scale(1)',
                   }}
                 >
                   {/* Image */}

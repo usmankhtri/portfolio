@@ -12,7 +12,7 @@ interface SectionDividerProps {
 
 export const SectionDivider = ({ className }: SectionDividerProps) => (
   <div
-    className={cn('relative h-14 w-full overflow-hidden pointer-events-none select-none', className)}
+    className={cn('relative h-10 sm:h-12 w-full overflow-hidden pointer-events-none select-none my-2 sm:my-3', className)}
     aria-hidden="true"
   >
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-px w-[min(64rem,82%)] bg-gradient-to-r from-transparent via-white/20 to-transparent" />

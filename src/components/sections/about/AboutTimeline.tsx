@@ -57,7 +57,7 @@ export const AboutTimeline = () => {
       {/* HEADER                                                      */}
       {/* ========================================================= */}
 
-      <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-10 pt-16 sm:pt-24 pb-8 sm:pb-10">
+      <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-10 pt-8 sm:pt-12 pb-6 sm:pb-8">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -109,8 +109,8 @@ export const AboutTimeline = () => {
             aria-hidden="true"
           />
 
-          {/* One joined column — zero gaps between milestones */}
-          <div className="relative rounded-[24px] sm:rounded-[28px] border border-white/[0.09] bg-[#07101f] shadow-[0_35px_100px_rgba(0,0,0,0.55)] divide-y divide-white/[0.06] overflow-hidden">
+          {/* Open milestone items with generous gaps */}
+          <div className="relative space-y-6 sm:space-y-8">
             {milestones.map((milestone, index) => {
               const Icon = iconMap[milestone.icon] ?? Hourglass
               return (
@@ -120,46 +120,46 @@ export const AboutTimeline = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.7, ease: APPLE_EASE }}
-                  className="relative p-3.5 xs:p-5 sm:p-6 lg:p-7 hover:bg-white/[0.02] transition-colors"
+                  className="relative rounded-2xl border border-white/[0.09] bg-[#07101f]/90 p-5 sm:p-7 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:border-blue-500/30 hover:bg-[#07101f] transition-all group"
                 >
                   {/* Node on the spine */}
                   <div
-                    className="absolute -left-3.5 xs:-left-4 sm:-left-6 lg:-left-8 -translate-x-1/2 -translate-y-1/2 top-1/2 size-2.5 sm:size-3 rounded-full bg-blue-400 border-2 border-[#07101f]"
-                    style={{ boxShadow: '0 0 12px rgba(96,165,250,0.9)' }}
+                    className="absolute -left-3.5 xs:-left-4 sm:-left-6 lg:-left-8 -translate-x-1/2 -translate-y-1/2 top-1/2 size-3.5 sm:size-4 rounded-full bg-blue-400 border-2 border-[#07101f] group-hover:scale-125 transition-transform"
+                    style={{ boxShadow: '0 0 14px rgba(96,165,250,0.9)' }}
                     aria-hidden="true"
                   />
 
-                  <div className="flex items-start gap-3 sm:gap-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     {/* Year */}
-                    <span className="font-display text-lg xs:text-xl sm:text-2xl lg:text-3xl text-gradient-blue leading-none pt-1 w-12 xs:w-14 sm:w-20 shrink-0">
+                    <span className="font-display text-xl sm:text-2xl lg:text-3xl text-gradient-blue leading-none pt-1 w-14 sm:w-20 shrink-0">
                       {milestone.year}
                     </span>
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-1.5">
+                      <div className="flex items-center gap-3 mb-2">
                         <div
-                          className="size-8 rounded-lg flex items-center justify-center shrink-0"
-                          style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.2)' }}
+                          className="size-9 rounded-xl flex items-center justify-center shrink-0"
+                          style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.25)' }}
                         >
-                          <Icon className="size-4 text-primary-light" />
+                          <Icon className="size-4.5 text-blue-400" />
                         </div>
                         <h3 className="font-heading font-extrabold tracking-tight text-white text-base sm:text-lg lg:text-xl">
                           {milestone.title}
                         </h3>
                       </div>
-                      <p className="text-sm leading-relaxed text-zinc-400">{milestone.desc}</p>
-                      <span className="sm:hidden inline-block mt-2.5 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-[9px] uppercase tracking-[0.18em] text-blue-300 font-heading">
+                      <p className="text-sm sm:text-base leading-relaxed text-zinc-300">{milestone.desc}</p>
+                      <span className="sm:hidden inline-block mt-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-[0.18em] text-blue-300 font-heading">
                         {milestone.tag}
                       </span>
                     </div>
 
                     {/* Tag + counter */}
-                    <div className="hidden sm:flex flex-col items-end gap-2 shrink-0 pt-1">
-                      <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-[0.18em] text-blue-300 font-heading">
+                    <div className="hidden sm:flex flex-col items-end gap-2.5 shrink-0 pt-1">
+                      <span className="px-3.5 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-[0.18em] text-blue-300 font-heading">
                         {milestone.tag}
                       </span>
-                      <span className="font-mono text-[10px] text-zinc-600">
+                      <span className="font-mono text-[10px] text-zinc-500">
                         {String(index + 1).padStart(2, '0')} / {String(milestones.length).padStart(2, '0')}
                       </span>
                     </div>

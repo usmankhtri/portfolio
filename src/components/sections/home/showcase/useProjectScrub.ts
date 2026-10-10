@@ -44,46 +44,46 @@ export const useProjectScrub = (ref: RefObject<HTMLElement | null>): ProjectScru
 
   const cardOpacity = useTransform(
     progress,
-    [0, 0.07, 0.32, 0.7, 0.93, 1],
-    [0, 1, 1, 1, 1, 0],
+    [0, 0.05, 0.95, 1],
+    [1, 1, 1, 1],
   )
 
   const cardY = useTransform(
     progress,
-    [0, 0.07, 0.32, 0.7, 0.93, 1],
-    [60, 14, 0, 0, -20, -60],
+    [0, 0.5, 1],
+    [0, 0, 0],
   )
 
   const cardScale = useTransform(
     progress,
     [0, 0.25, 0.5, 0.75, 1],
-    [0.955, 0.992, 1, 0.992, 0.955],
+    [0.99, 1, 1, 1, 0.99],
   )
 
   const cardRotateX = useTransform(
     progress,
     [0, 0.38, 0.62, 1],
-    [2, 0, 0, -2],
+    [0.5, 0, 0, -0.5],
   )
 
-  /* Curtain wipe reveal */
+  /* Clean full card frame — no artificial edge clipping */
   const cardClip = useTransform(
     progress,
-    [0.04, 0.3],
-    ['inset(16% 8% 16% 8%)', 'inset(0% 0% 0% 0%)'],
+    [0, 1],
+    ['inset(0% 0% 0% 0%)', 'inset(0% 0% 0% 0%)'],
   )
 
   /* =============================================================== */
   /* IMAGE                                                             */
   /* =============================================================== */
 
-  const imageScale = useTransform(progress, [0, 0.5, 1], [1.16, 1, 1.12])
-  const imageX = useTransform(progress, [0, 0.5, 1], [30, 0, -26])
-  const imageY = useTransform(progress, [0, 0.5, 1], [-18, 0, 16])
-  const imageRotate = useTransform(progress, [0, 0.5, 1], [-1.2, 0, 1.2])
+  const imageScale = useTransform(progress, [0, 0.5, 1], [1.08, 1, 1.06])
+  const imageX = useTransform(progress, [0, 0.5, 1], [16, 0, -14])
+  const imageY = useTransform(progress, [0, 0.5, 1], [-8, 0, 8])
+  const imageRotate = useTransform(progress, [0, 0.5, 1], [-0.5, 0, 0.5])
 
   /* Spotlight-coming-up brightness pass */
-  const brightness = useTransform(progress, [0.08, 0.45], [0.55, 1])
+  const brightness = useTransform(progress, [0.08, 0.45], [0.8, 1])
 
   /* =============================================================== */
   /* GLOW + CAPTION                                                    */
@@ -92,19 +92,19 @@ export const useProjectScrub = (ref: RefObject<HTMLElement | null>): ProjectScru
   const glowOpacity = useTransform(
     progress,
     [0, 0.24, 0.5, 0.76, 1],
-    [0, 0.18, 0.45, 0.18, 0],
+    [0.15, 0.35, 0.45, 0.35, 0.15],
   )
 
   const captionY = useTransform(
     progress,
-    [0, 0.26, 0.5, 0.78, 1],
-    [24, 6, 0, -4, -16],
+    [0, 0.5, 1],
+    [0, 0, 0],
   )
 
   const captionOpacity = useTransform(
     progress,
-    [0, 0.1, 0.34, 0.78, 1],
-    [0, 1, 1, 1, 0],
+    [0, 0.05, 0.95, 1],
+    [1, 1, 1, 1],
   )
 
   return {

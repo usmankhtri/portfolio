@@ -73,19 +73,17 @@ export const FascinatingProjectScroll = () => {
       </div>
 
       {/* ========================================================= */}
-      {/* OPENING TITLE MARQUEE — above the first card                  */}
-      {/* ========================================================= */}
-
+      {/* OPENING TITLE MARQUEE — above the first card */}
       <ShowcaseMarquee
         words={['Selected Projects', 'Case Studies']}
-        className="relative z-20"
+        className="relative z-20 mb-8 sm:mb-12"
       />
 
       {/* ========================================================= */}
-      {/* THE SHOTS — one cinematic stage per project                  */}
+      {/* THE SHOTS — compact 10px gap between project cards        */}
       {/* ========================================================= */}
 
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col gap-[10px] py-4">
         {projects.map((project, index) => (
           <CinematicStage
             key={project.id}

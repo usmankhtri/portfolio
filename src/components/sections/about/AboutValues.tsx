@@ -26,7 +26,7 @@ const itemVariants = {
 
 export const AboutValues = () => {
   return (
-    <section className="relative py-20 sm:py-28 bg-background overflow-hidden" aria-label="My Principles">
+    <section className="relative py-8 sm:py-12 bg-background overflow-hidden" aria-label="My Principles">
       {/* Ambient background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 bg-grid opacity-20" />
@@ -76,13 +76,13 @@ export const AboutValues = () => {
           </motion.p>
         </motion.div>
 
-        {/* Values grid */}
+        {/* Values grid — open and spacious */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8"
         >
           {about.values.map((value) => {
             const Icon = iconMap[value.icon] ?? Compass

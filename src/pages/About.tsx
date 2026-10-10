@@ -113,7 +113,7 @@ export const About = () => {
           {/* ============================================================= */}
           <section className="relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-              <div className="relative pt-10 sm:pt-16 pb-12 sm:pb-20">
+              <div className="relative pt-8 sm:pt-12 pb-6 sm:pb-8">
                 {/* Massive ambient glow behind headline */}
                 <motion.div
                   aria-hidden
@@ -193,7 +193,7 @@ export const About = () => {
           {/* ============================================================= */}
           {/* STATS — instrument board                                       */}
           {/* ============================================================= */}
-          <section className="py-16 sm:py-20 bg-background">
+          <section className="py-6 sm:py-8 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
               <CreativeStatsBar data={ABOUT_STATS} />
             </div>
@@ -237,7 +237,7 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.8, ease: APPLE_EASE }}
-                className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md pt-16 pb-12 sm:pt-20 text-center my-12 sm:my-16"
+                className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md pt-10 pb-8 sm:pt-12 text-center my-6 sm:my-8"
               >
                 {/* Engineering grid */}
                 <div

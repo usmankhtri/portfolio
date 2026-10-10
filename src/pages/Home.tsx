@@ -62,7 +62,7 @@ export const Home = () => {
         <SectionDivider />
 
         {/* SCENE 02 — Impact (stats line) */}
-        <SceneShell label="Impact" accent="#3B82F6" className="py-10 sm:py-12">
+        <SceneShell label="Impact" accent="#3B82F6">
           <CreativeStatsBar />
         </SceneShell>
 

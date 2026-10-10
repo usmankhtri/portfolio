@@ -126,7 +126,7 @@ export const ServicesPage = () => {
           {/* ============================================================= */}
           {/* SERVICES GRID                                                 */}
           {/* ============================================================= */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 py-6 sm:py-8">
             {services.map((service, i) => {
               const Icon = iconMap[service.icon] || Code2
               return (
@@ -195,7 +195,7 @@ export const ServicesPage = () => {
           {/* ============================================================= */}
           {/* PROCESS                                                       */}
           {/* ============================================================= */}
-          <div className="py-12 sm:py-16">
+          <div className="py-6 sm:py-8">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -253,7 +253,7 @@ export const ServicesPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.8, ease: APPLE_EASE }}
-            className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md py-16 sm:py-20 text-center my-12 sm:my-16"
+            className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md py-10 sm:py-14 text-center my-6 sm:my-8"
           >
             <div
               aria-hidden

@@ -53,7 +53,7 @@ export const Works = () => {
         {/* ============================================================= */}
         {/* HEADER + VIEW TOGGLE                                          */}
         {/* ============================================================= */}
-        <div className="relative z-20 max-w-7xl 2xl:max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-20 pt-20 sm:pt-28">
+        <div className="relative z-20 max-w-7xl 2xl:max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-20 pt-10 sm:pt-14 pb-4">
           <div className="flex items-end justify-between">
             <div>
               <motion.div
@@ -153,13 +153,13 @@ export const Works = () => {
         {/* ============================================================= */}
         {/* BOTTOM CTA                                                    */}
         {/* ============================================================= */}
-        <div className="relative z-10 max-w-7xl 2xl:max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-20 py-16 sm:py-24">
+        <div className="relative z-10 max-w-7xl 2xl:max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-20 py-8 sm:py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.8, ease: APPLE_EASE }}
-            className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md py-16 sm:py-20 text-center"
+            className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md py-10 sm:py-14 text-center"
           >
             <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_right,rgba(147,197,253,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(147,197,253,0.04)_1px,transparent_1px)] bg-[size:48px_48px]" />
             <div aria-hidden className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] opacity-30 blur-[80px]" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%)' }} />

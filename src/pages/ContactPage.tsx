@@ -200,7 +200,7 @@ export const ContactPage = () => {
         {/* ═══════════════════════════════════════════════════════════ */}
         {/* HERO — cinematic full-screen entrance                      */}
         {/* ═══════════════════════════════════════════════════════════ */}
-        <section className="relative z-10 min-h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative z-10 pt-20 pb-12 sm:pt-28 sm:pb-16 flex items-center justify-center overflow-hidden">
           <motion.div aria-hidden className="pointer-events-none absolute -top-32 -left-32 h-[600px] w-[600px] rounded-full blur-[180px]"
             style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }}
             animate={{ x: [0, 30, 0], y: [0, -20, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
@@ -266,7 +266,7 @@ export const ContactPage = () => {
         {/* ═══════════════════════════════════════════════════════════ */}
         {/* CONTACT FORM + INFO — split cinematic layout               */}
         {/* ═══════════════════════════════════════════════════════════ */}
-        <section id="contact-form" className="relative z-10 py-16 sm:py-24 scroll-mt-24">
+        <section id="contact-form" className="relative z-10 py-10 sm:py-14 scroll-mt-24">
           <div className="mx-auto max-w-6xl px-5 sm:px-8">
             <div className="mb-12 sm:mb-16 text-center">
               <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5, ease: APPLE_EASE }} className="mb-5 flex items-center justify-center gap-3">

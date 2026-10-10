@@ -1,254 +1,166 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, MapPin, Clock, Mail, Code2, Layers, BrainCircuit, Workflow } from 'lucide-react'
-import { FiGithub } from 'react-icons/fi'
+import { ArrowUpRight, Terminal, Gauge, Cpu } from 'lucide-react'
 import { APPLE_EASE } from '../../../lib/utils'
 import { portfolioData } from '../../../data/portfolioData'
 import { SceneShell } from '../../ui/SceneShell'
 import { SceneHeader } from '../../ui/SceneHeader'
-import { useMagnetic } from '../../../hooks/useMagnetic'
 
 const { about } = portfolioData
 
-const META = [
-  { icon: MapPin, label: 'Location', value: about.location },
-  { icon: Clock, label: 'Timezone', value: about.timezone },
-  { icon: Mail, label: 'Email', value: about.email },
-  { icon: FiGithub, label: 'GitHub', value: 'usmankhatri' },
+const PILLARS = [
+  {
+    icon: Terminal,
+    title: 'Architecture & Systems',
+    description: 'Scalable MERN, Next.js, and TypeScript architectures built with maintainability and type safety.',
+  },
+  {
+    icon: Gauge,
+    title: 'Speed & Resilience',
+    description: 'Sub-100ms interactions, transform-only animations, and offline-capable PWA engineering.',
+  },
+  {
+    icon: Cpu,
+    title: 'Developer Tooling',
+    description: 'Creating practical tools for migrations, webhooks, and code impact review that ship to production.',
+  },
 ]
-
-const TOP_SKILLS = [
-  { title: 'Software Development', sub: 'Clean · Scalable · Tested', icon: Code2 },
-  { title: 'Full Stack Development', sub: 'Frontend · Backend · APIs', icon: Layers },
-  { title: 'Artificial Intelligence (AI)', sub: 'LLMs · RAG · Prompt Systems', icon: BrainCircuit },
-  { title: 'Automation', sub: 'Workflows · Pipelines · Bots', icon: Workflow },
-]
-
-/* Film-style corner ticks, fade in on hover — same language as the stats */
-const Ticks = () => (
-  <>
-    <span className="pointer-events-none absolute left-3 top-3 size-2.5 border-l border-t border-blue-400/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-    <span className="pointer-events-none absolute right-3 top-3 size-2.5 border-r border-t border-blue-400/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-    <span className="pointer-events-none absolute bottom-3 left-3 size-2.5 border-b border-l border-blue-400/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-    <span className="pointer-events-none absolute bottom-3 right-3 size-2.5 border-b border-r border-blue-400/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-  </>
-)
-
-/* Mono section kicker — index + hairline + label */
-const Kicker = ({ index, text }: { index: string; text: string }) => (
-  <div className="mb-4 flex items-center gap-3">
-    <span className="font-mono text-[10px] tracking-[0.3em] text-blue-400/80">{index}</span>
-    <span className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" />
-    <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-400 uppercase">{text}</span>
-  </div>
-)
 
 export const AboutScene = () => {
-  const ctaRef = useMagnetic<HTMLAnchorElement>(0.07)
-
   return (
     <SceneShell label="About Me" accent="#60A5FA">
       <SceneHeader
         eyebrow="About Me"
         title={
           <>
-            Engineer by craft.
-            <br />
+            Engineer by craft.{' '}
             <span className="text-gradient">Designer by instinct.</span>
           </>
         }
-        sub="A look into my background, engineering philosophy, and how I build digital products."
+        sub="Merging full-stack technical precision with cinematic, human-centered interfaces."
       />
 
-      {/* Profile board */}
-      <div className="relative mx-0 sm:-mx-6 lg:-mx-12 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md">
-        {/* Engineering grid */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(147,197,253,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(147,197,253,0.05)_1px,transparent_1px)] bg-[size:48px_48px]"
-        />
-        {/* Center glow */}
-        <div
-          aria-hidden
-          className="absolute -top-28 left-1/2 -translate-x-1/2 size-72 rounded-full opacity-20 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #60A5FA 0%, rgba(96,165,250,0) 70%)' }}
-        />
-        {/* Bottom accent hairline */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"
-        />
+      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        {/* Left Column: Authentic Portrait */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: APPLE_EASE }}
+          className="lg:col-span-5"
+        >
+          <div className="relative mx-auto max-w-md lg:max-w-none rounded-2xl overflow-hidden border border-white/[0.08] bg-[#07101f] shadow-2xl group">
+            {/* Ambient inner gradient */}
+            <div
+              aria-hidden
+              className="absolute -top-24 -left-24 size-48 rounded-full bg-blue-500/15 blur-2xl pointer-events-none"
+            />
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-12">
-          {/* PORTRAIT — film still with nameplate */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, ease: APPLE_EASE }}
-            className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/[0.06]"
-          >
-            <div className="relative h-60 xs:h-72 sm:h-80 lg:h-full lg:min-h-[420px] overflow-hidden">
+            <div className="relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] overflow-hidden">
               <img
                 src="/3potrait.png"
-                alt="Usman Khatri — focused and precise"
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                alt="Usman Khatri — Full-Stack Architect"
+                className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                 loading="lazy"
                 decoding="async"
               />
 
-              {/* Cinematic scrim */}
+              {/* Cinematic bottom scrim */}
               <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(6,12,26,0.94) 0%, rgba(6,12,26,0.25) 55%, transparent 100%)' }}
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-[#050b17] via-[#050b17]/50 to-transparent"
               />
 
-              {/* Top hairline */}
-              <div className="absolute left-[15%] right-[15%] top-0 z-10 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
-
-              {/* Scene tag */}
-              <span className="absolute left-4 top-4 z-10 font-mono text-[9px] tracking-[0.35em] text-white/50">
-                PROFILE OVERVIEW
-              </span>
-
-              {/* Nameplate */}
-              <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
-                <p className="font-heading font-black text-2xl text-white">Usman Khatri</p>
-                <p className="mt-1 font-mono text-[10px] tracking-[0.3em] text-blue-300/90">
-                  FULL-STACK ARCHITECT · HYDERABAD, PK
-                </p>
-                <div className="mt-3 h-px bg-gradient-to-r from-blue-400/40 to-transparent" />
-              </div>
-
-              {/* Decorative inner frame */}
-              <div className="pointer-events-none absolute inset-3 rounded-xl border border-white/[0.07]" />
-            </div>
-          </motion.div>
-
-          {/* Details — background, philosophy, contact, skills, CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, ease: APPLE_EASE, delay: 0.1 }}
-            className="lg:col-span-7 flex flex-col"
-          >
-            {/* Background */}
-            <div className="group relative border-t border-white/[0.06] first:border-t-0 p-5 xs:p-6 sm:p-7">
-              <Ticks />
-              <Kicker index="01" text="Background" />
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">{about.bio}</p>
-            </div>
-
-            {/* Philosophy */}
-            <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
-              <Ticks />
-              <Kicker index="02" text="Philosophy" />
-              <div className="relative">
-                <span className="absolute -top-7 left-0 select-none font-display text-7xl leading-none text-primary-light/20">
-                  &quot;
-                </span>
-                <p className="relative pl-7 font-heading font-bold text-white text-lg tracking-tight sm:text-xl">
-                  {about.philosophy}
-                </p>
-              </div>
-            </div>
-
-            {/* Contact & Location */}
-            <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
-              <Ticks />
-              <Kicker index="03" text="Location & Contact" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.06]">
-                {META.map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="flex items-center gap-3.5 bg-[#07101f] p-4">
-                    <div
-                      className="flex size-9 shrink-0 items-center justify-center rounded-lg"
-                      style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)' }}
-                    >
-                      <Icon className="size-4 text-primary-light" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="mb-0.5 font-mono text-[9px] tracking-[0.25em] text-zinc-500 uppercase">
-                        {label}
-                      </p>
-                      <p className="truncate text-xs text-zinc-200 sm:text-sm">{value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Specializations — core capabilities */}
-            <div className="group relative border-t border-white/[0.06] p-5 xs:p-6 sm:p-7">
-              <Ticks />
-              <Kicker index="04" text="Specializations" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {TOP_SKILLS.map((skill, i) => {
-                  const Icon = skill.icon
-                  return (
-                    <div
-                      key={skill.title}
-                      className="group/cell relative overflow-hidden rounded-xl border border-white/[0.06] bg-[#07101f] p-5 transition-colors duration-300 hover:border-blue-500/25 hover:bg-blue-500/[0.04]"
-                    >
-                      <span className="pointer-events-none absolute -right-1 -top-5 select-none font-display font-black text-6xl leading-none text-white/[0.035] transition-colors duration-500 group-hover/cell:text-blue-500/[0.07]">
-                        0{i + 1}
-                      </span>
-                      <span className="pointer-events-none absolute left-2 top-2 size-1.5 border-l border-t border-blue-400/20 opacity-0 transition-opacity duration-500 group-hover/cell:opacity-100" />
-                      <span className="pointer-events-none absolute bottom-2 right-2 size-1.5 border-b border-r border-blue-400/20 opacity-0 transition-opacity duration-500 group-hover/cell:opacity-100" />
-                      <span
-                        className="flex size-10 items-center justify-center rounded-lg"
-                        style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)' }}
-                      >
-                        <Icon className="size-4.5 text-primary-light" />
-                      </span>
-                      <p className="mt-4 font-heading font-bold text-white text-sm sm:text-base">
-                        {skill.title}
-                      </p>
-                      <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-zinc-500 uppercase">
-                        {skill.sub}
-                      </p>
-                    </div>
-                  )
-                })}
-              </div>
-              <Link
-                to="/about"
-                className="group/cell relative mt-3 flex items-center justify-between gap-3 rounded-xl border border-blue-500/20 bg-blue-500/[0.05] p-4 transition-colors duration-300 hover:bg-blue-500/[0.09]"
-              >
-                <span className="pointer-events-none absolute left-2 top-2 size-1.5 border-l border-t border-blue-400/25 opacity-0 transition-opacity duration-500 group-hover/cell:opacity-100" />
-                <span className="pointer-events-none absolute bottom-2 right-2 size-1.5 border-b border-r border-blue-400/25 opacity-0 transition-opacity duration-500 group-hover/cell:opacity-100" />
-                <div>
-                  <p className="font-heading font-bold text-white text-sm sm:text-base">View all skills &amp; technologies</p>
-                  <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-zinc-500 uppercase">
-                    16+ technologies &amp; tools
-                  </p>
+              {/* Bottom Details Overlay */}
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 z-10">
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="relative flex size-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full size-2 bg-emerald-400" />
+                  </span>
+                  <span className="text-[11px] font-medium text-emerald-300 tracking-wide">
+                    Available for select projects
+                  </span>
                 </div>
-                <ArrowUpRight className="size-4 shrink-0 text-primary-light transition-transform duration-300 group-hover/cell:translate-x-0.5 group-hover/cell:-translate-y-0.5" />
-              </Link>
-            </div>
 
-            {/* CTA */}
+                <p className="font-heading font-black text-2xl sm:text-3xl text-white">Usman Khatri</p>
+                <p className="text-xs text-zinc-400 mt-1.5">
+                  Full-Stack Architect · Hyderabad, Pakistan
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right Column: Clean Editorial Story & Pillars */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: APPLE_EASE, delay: 0.1 }}
+          className="lg:col-span-7 flex flex-col justify-center"
+        >
+          {/* Philosophy Statement */}
+          <div className="relative pl-6 border-l-2 border-blue-500/70 mb-8">
+            <p className="font-heading font-bold text-white text-lg sm:text-xl lg:text-2xl leading-snug tracking-tight">
+              &ldquo;{about.philosophy}&rdquo;
+            </p>
+          </div>
+
+          {/* Narrative Paragraphs */}
+          <div className="space-y-5 text-zinc-300 text-sm sm:text-base leading-relaxed mb-10">
+            <p>
+              I build web applications and developer tools with a focus on speed, clarity, and structural longevity. Whether architecting scalable MERN systems, deploying offline-ready PWAs, or streamlining workflows, I bridge raw engineering depth with clean aesthetic execution.
+            </p>
+            <p className="text-zinc-400">
+              Every detail is deliberate: lean client bundles, sub-100ms response targets, and rock-solid state management so applications remain reliable and enjoyable long after launch.
+            </p>
+          </div>
+
+          {/* Core Pillars — Open, minimalist, and spacious */}
+          <div className="space-y-6 sm:space-y-7 border-t border-white/[0.08] pt-8 mb-10">
+            {PILLARS.map((pillar) => {
+              const Icon = pillar.icon
+              return (
+                <div key={pillar.title} className="flex items-start gap-4 sm:gap-5">
+                  <div className="size-10 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center shrink-0 mt-0.5">
+                    <Icon className="size-4.5 text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-white text-sm sm:text-base">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mt-1">
+                      {pillar.description}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Single Focused Call to Action */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-5">
             <Link
               to="/about"
-              ref={ctaRef}
-              className="group relative flex items-center justify-between gap-3 border-t border-white/[0.06] p-5 transition-colors duration-300 hover:bg-white/[0.02] sm:p-6 will-change-transform"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs sm:text-sm font-semibold text-white font-heading transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+              style={{
+                background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                boxShadow: '0 0 24px rgba(37,99,235,0.3)',
+              }}
             >
-              <Ticks />
-              <div>
-                <p className="font-heading font-bold text-white text-sm sm:text-base">Read the full story</p>
-                <p className="mt-1 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
-                  Timeline · Values · Process
-                </p>
-              </div>
-              <span
-                className="flex size-10 shrink-0 items-center justify-center rounded-full transition-all group-hover:scale-110"
-                style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)' }}
-              >
-                <ArrowUpRight className="size-4 text-primary-light transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
+              <span>Explore My Full Journey</span>
+              <ArrowUpRight className="size-4" />
             </Link>
-          </motion.div>
-        </div>
+
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs sm:text-sm font-semibold text-zinc-300 hover:text-white font-heading transition-colors border border-white/10 hover:border-white/20 bg-white/[0.03]"
+            >
+              <span>Get in Touch</span>
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </SceneShell>
   )

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { motion, animate, useInView, useReducedMotion } from 'framer-motion'
-import { cn } from '../../../lib/utils'
 import { Rocket, ShieldCheck, Zap, Code } from 'lucide-react'
 
 export interface StatItem {
@@ -97,89 +96,72 @@ const Counter = ({ value }: { value: string }) => {
 export const CreativeStatsBar = ({ data = STATS_DATA }: { data?: StatItem[] }) => {
   return (
     <div className="relative w-full" aria-label="Key Performance Indicators">
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0B1220]/60 backdrop-blur-md">
-        {/* Engineering grid */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(147,197,253,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(147,197,253,0.05)_1px,transparent_1px)] bg-[size:48px_48px]"
-        />
-        {/* Center glow */}
-        <div
-          aria-hidden
-          className="absolute -top-28 left-1/2 -translate-x-1/2 size-72 rounded-full opacity-25 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #3B82F6 0%, rgba(59,130,246,0) 70%)' }}
-        />
-        {/* Radial gradient glow behind the stats grid */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-600/10 via-transparent to-transparent"
-        />
-        {/* Bottom accent hairline */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {data.map((stat, index) => {
+          const Icon = stat.icon
+          return (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -4 }}
+              viewport={{ once: true, amount: 0 }}
+              transition={{ duration: 0.25, ease: 'easeOut', delay: index * 0.08 }}
+              className="group relative rounded-2xl border border-white/[0.08] bg-[#07101f]/90 p-5 xs:p-6 sm:p-7 flex flex-col justify-between gap-5 hover:border-blue-500/35 hover:bg-[#07101f] transition-all duration-300 shadow-xl overflow-hidden cursor-default will-change-transform"
+            >
+              {/* Engineering grid subtle pattern */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-[linear-gradient(to_right,rgba(147,197,253,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(147,197,253,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"
+              />
 
-        <div className="relative grid grid-cols-2 lg:grid-cols-4 py-8 sm:py-10">
-          {data.map((stat, index) => {
-            const Icon = stat.icon
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -3 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.2, ease: 'easeOut', delay: index * 0.08 }}
-                className={cn(
-                  'group relative flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 p-3.5 xs:p-5 sm:p-7 lg:p-10 cursor-default will-change-transform',
-                  'hover:border-blue-500/30 hover:bg-blue-950/20 transition-colors duration-300',
-                  index % 2 === 1 && 'border-l border-white/[0.06]',
-                  index > 0 && 'lg:border-l border-white/[0.06]',
-                  index >= 2 && 'border-t lg:border-t-0 border-white/[0.06]',
-                )}
-              >
-                {/* Film-style corner ticks, appear on hover */}
-                <span className="pointer-events-none absolute left-2.5 top-2.5 size-2.5 border-l border-t border-blue-400/0 group-hover:border-blue-400/50 transition-colors duration-500" />
-                <span className="pointer-events-none absolute bottom-2.5 right-2.5 size-2.5 border-b border-r border-blue-400/0 group-hover:border-blue-400/50 transition-colors duration-500" />
+              {/* Ambient hover bloom */}
+              <div
+                aria-hidden
+                className="absolute -top-12 -right-12 size-32 rounded-full opacity-0 group-hover:opacity-30 blur-2xl transition-opacity duration-500 pointer-events-none"
+                style={{ background: stat.color }}
+              />
 
-                {/* Index + icon chip */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-blue-400/80">
-                    0{index + 1}
-                  </span>
-                  <span
-                    className="flex size-8 xs:size-9 sm:size-11 items-center justify-center rounded-lg border transition-colors duration-500 group-hover:bg-white/[0.04]"
-                    style={{ borderColor: stat.borderColor, background: stat.bgColor }}
-                  >
-                    <Icon
-                      className="size-4 sm:size-5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
-                      style={{ color: stat.color }}
-                    />
-                  </span>
-                </div>
+              {/* Film-style corner ticks */}
+              <span className="pointer-events-none absolute left-3 top-3 size-2.5 border-l border-t border-blue-400/0 group-hover:border-blue-400/60 transition-colors duration-300" />
+              <span className="pointer-events-none absolute bottom-3 right-3 size-2.5 border-b border-r border-blue-400/0 group-hover:border-blue-400/60 transition-colors duration-300" />
 
-                {/* Gradient count-up value */}
-                <div
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: `linear-gradient(135deg, #E0F2FE 0%, ${stat.color} 60%)` }}
+              {/* Index + icon chip */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-[0.3em] text-blue-400/80">
+                  0{index + 1}
+                </span>
+                <span
+                  className="flex size-9 sm:size-11 items-center justify-center rounded-xl border transition-colors duration-500 group-hover:bg-white/[0.06]"
+                  style={{ borderColor: stat.borderColor, background: stat.bgColor }}
                 >
-                  <span className="font-display font-black text-2xl xs:text-3xl sm:text-4xl lg:text-6xl leading-none tracking-tighter">
-                    <Counter value={stat.value} />
-                  </span>
-                </div>
+                  <Icon
+                    className="size-4.5 sm:size-5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
+                    style={{ color: stat.color }}
+                  />
+                </span>
+              </div>
 
-                {/* Label + sublabel */}
-                <div className="space-y-1">
-                  <span className="block font-heading font-semibold text-xs uppercase tracking-[0.18em] text-white">
-                    {stat.label}
-                  </span>
-                  <span className="block font-mono text-[10px] text-zinc-400">{stat.sublabel}</span>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+              {/* Gradient count-up value */}
+              <div
+                className="relative z-10 bg-clip-text text-transparent my-1"
+                style={{ backgroundImage: `linear-gradient(135deg, #E0F2FE 0%, ${stat.color} 70%)` }}
+              >
+                <span className="font-display font-black text-3xl sm:text-4xl lg:text-5xl leading-none tracking-tighter">
+                  <Counter value={stat.value} />
+                </span>
+              </div>
+
+              {/* Label + sublabel */}
+              <div className="relative z-10 space-y-1">
+                <span className="block font-heading font-semibold text-xs uppercase tracking-[0.16em] text-white">
+                  {stat.label}
+                </span>
+                <span className="block font-mono text-[10px] text-zinc-400">{stat.sublabel}</span>
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
     </div>
   )

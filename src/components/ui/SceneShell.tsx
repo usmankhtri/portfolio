@@ -24,7 +24,7 @@ export const SceneShell = ({
 
   return (
     <section
-      className={cn('relative py-16 sm:py-24 md:py-28 bg-background overflow-hidden', className)}
+      className={cn('relative py-10 sm:py-12 md:py-14 bg-background overflow-hidden', className)}
       aria-label={label}
     >
       {/* Single accent bloom — the scene's ambient light */}
